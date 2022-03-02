@@ -5,7 +5,7 @@ public class Chunk
 {
     public List<List<GameObject>> tiles = new List<List<GameObject>>();
     private Rect rectOfChunk;
-    public Chunk(int sizeOfChunck, GameObject tile, Vector2 posOfTile,int numberOfChunk,ref GameObject chunk,out  GameObject chunk1)
+    public Chunk(int sizeOfChunck, GameObject tile, Vector2 posOfTile,int numberOfChunk, float sizeOfTiles, ref GameObject chunk,out  GameObject chunk1)
     {
         chunk1 = chunk;
         chunk1.transform.position = posOfTile;
@@ -15,13 +15,13 @@ public class Chunk
             List<GameObject> tilesRow = new List<GameObject>();
             for (int x = 0; x < sizeOfChunck; x++)
             {
-                tilesRow.Add(GameObject.Instantiate(tile, new Vector2(posOfTile.x +x, posOfTile.y+ y), Quaternion.identity));
+                tilesRow.Add(GameObject.Instantiate(tile, new Vector2(posOfTile.x +x, posOfTile.y+ y) * sizeOfTiles, Quaternion.identity));
                 tilesRow[tilesRow.Count - 1].transform.SetParent(chunk1.transform);
             }
             tiles.Add(tilesRow);
             
         }
-        rectOfChunk = new Rect(posOfTile,Vector2.one*sizeOfChunck);
+        rectOfChunk = new Rect(posOfTile*sizeOfTiles,Vector2.one*sizeOfChunck*sizeOfTiles);
     }
 
     public void IsWithinChunk(Vector2 playerPos, out direction currentDir)
