@@ -17,6 +17,7 @@ public class PlayerMoneyEditor : Editor
         foreach (CryptosInInventory item in playerMoney.myCryptos)
         {
             myCryptos.Add(item.myCrypto);
+
             value.Add(item.ChangeValue(0));
         }
     }

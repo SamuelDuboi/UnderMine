@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5979ccc500287149a22b0a709789a26, type: 3}
   m_Name: New Player Money
   m_EditorClassIdentifier: 
+  myCryptos: []

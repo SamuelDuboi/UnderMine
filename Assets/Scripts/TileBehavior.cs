@@ -25,7 +25,18 @@ public class TileBehavior : MonoBehaviour
         ChangeColor(Color.Lerp( Color.red,Color.blue, myTile.Dig(Time.deltaTime) / timeToDig));
         return this;
     }
+    public float Collect()
+    {
+        if (myTile.isDigged)
+        {
+            collider.enabled = false;
+            meshRenderer.enabled = false;
+            return myTile.cryptoType.currentValue;
+        }
 
+        ChangeColor(Color.Lerp(Color.grey, Color.green, myTile.Dig(Time.deltaTime) / timeToDig));
+        return 0;
+    }
     public void Select()
     {
         ChangeColor(Color.yellow);
@@ -50,5 +61,9 @@ public class TileBehavior : MonoBehaviour
     {
         myTile = new Tile(timeToDig, crypto);
         meshRenderer.material = crypto.cryptoMat;
+    }
+    public CryptosType GetCryptoTyp()
+    {
+        return myTile.cryptoType.myCurrency;
     }
 }

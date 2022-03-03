@@ -28,6 +28,19 @@ public class PlayerMoney : ScriptableObject
         }
         return 0;
     }
+    public float GetNumberOwned(int index)
+    {
+        return myCryptos[index].ChangeValue(0);
+    }
+    public float ChangeValue(CryptosType cryptos, float value)
+    {
+        for (int i = 0; i < myCryptos.Count; i++)
+        {
+            if (myCryptos[i].myCrypto.myCurrency == cryptos)
+                return myCryptos[i].ChangeValue(value);
+        }
+        return 0;
+    }
 }
 [System.Serializable]
 public class CryptosInInventory

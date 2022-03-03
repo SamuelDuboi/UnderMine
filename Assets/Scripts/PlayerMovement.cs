@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEditor;
 public class PlayerMovement : MonoBehaviour
 {
     public float raycastRange;
@@ -15,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
     public List<TileBehavior> tileTargeted;
     public Camera cam;
     private bool isClicking;
+    private bool isDoubleClicking;
+    public Character minor;
+    private float timeBetweenClick;
+    public System.Action doubleClik;
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -28,17 +31,30 @@ public class PlayerMovement : MonoBehaviour
     }
     public void MousMovement(InputAction.CallbackContext context)
     {
-       
+        isClicking = context.performed;
         if (context.performed)
         {
+            isDoubleClicking = false;
+
             foreach (var item in tileTargeted)
             {
                 item.UnSelect();
             }
             tileTargeted.Clear();
+            movement = Vector2.zero;
+            if (Time.time - timeBetweenClick < 0.5f)
+            {
+                doubleClik.Invoke();
+                timeBetweenClick = 0;
+                tileTargeted.Clear();
+                tileSelected = null;
+                movement = Vector2.zero;
+                isDoubleClicking = true;
+                return;
+            }
+            timeBetweenClick = Time.time;
         }
-        isClicking = context.performed;
-        
+
     }
     /*  private void OnDrawGizmos()
       {
@@ -46,11 +62,12 @@ public class PlayerMovement : MonoBehaviour
       }*/
     private void Update()
     {
-        if (isClicking)
+        if (isClicking && !isDoubleClicking)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
             Ray mousRay = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
+           
             if (Physics.Raycast(mousRay, out hit))
             {
                 var _tileTargeted = hit.collider.GetComponent<TileBehavior>();
@@ -61,8 +78,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        else if (tileTargeted.Count>0) 
+        else if (tileTargeted.Count>0 && tileTargeted[0]!= null) 
         {
+          
             movement = (tileTargeted[0].transform.position - transform.position);
             if (movement.magnitude < 0.2f)
             {
