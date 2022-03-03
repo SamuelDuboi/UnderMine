@@ -5,13 +5,13 @@ using UnityEngine;
 public class Tile 
 {
     public Sprite currentSprite;
-    public float moneyValue { get; private set; }
+    public Cryptos cryptoType{ get; private set; }
     public bool isDigged { get; private set; }
     private float DiggingState { get;  set; }
-    public Tile (float diggingState, int _moneyValue)
+    public Tile (float diggingState, Cryptos _cryptoType)
     {
         DiggingState = diggingState;
-        moneyValue = _moneyValue;
+        cryptoType = _cryptoType;
     }
 
     /// <summary>
@@ -31,5 +31,6 @@ public class Tile
     {
 
     }
+
 
 }

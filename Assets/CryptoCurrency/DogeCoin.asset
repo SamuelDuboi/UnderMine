@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56527f8fc9e2254698a6129a2144523, type: 3}
+  m_Name: DogeCoin
+  m_EditorClassIdentifier: 
+  myCurrency: 1
+  currentValue: 10
+  cryptoMat: {fileID: 2100000, guid: 607a38502688e48498d9e7d4f78e784a, type: 2}
+  chanceOfAppearance: 10

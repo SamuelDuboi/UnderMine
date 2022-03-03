@@ -5,13 +5,12 @@ using UnityEngine;
 public class TileBehavior : MonoBehaviour
 {
     public float timeToDig;
-    public int moneyValue;
     private Tile myTile;
     public MeshRenderer meshRenderer;
     public BoxCollider collider;
     void Start()
     {
-        myTile = new Tile(timeToDig, moneyValue);
+        
     }
 
     public TileBehavior Digg()
@@ -19,10 +18,11 @@ public class TileBehavior : MonoBehaviour
         if (myTile.isDigged)
         {
             collider.enabled = false;
+            meshRenderer.enabled = false;
             return null;
         }
 
-        ChangeColor(Color.blue * myTile.Dig(Time.deltaTime) / timeToDig);
+        ChangeColor(Color.Lerp( Color.red,Color.blue, myTile.Dig(Time.deltaTime) / timeToDig));
         return this;
     }
 
@@ -32,7 +32,7 @@ public class TileBehavior : MonoBehaviour
     }
     public void Target()
     {
-        ChangeColor(Color.red);
+        ChangeColor(Color.blue);
     }
     public TileBehavior UnSelect()
     {
@@ -45,5 +45,10 @@ public class TileBehavior : MonoBehaviour
         meshRenderer.GetPropertyBlock(propBlock);
         propBlock.SetColor("_Color", color);
         meshRenderer.SetPropertyBlock(propBlock);
+    }
+    public void ApplyCrypto(Cryptos crypto)
+    {
+        myTile = new Tile(timeToDig, crypto);
+        meshRenderer.material = crypto.cryptoMat;
     }
 }

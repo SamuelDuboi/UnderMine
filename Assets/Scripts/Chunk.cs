@@ -5,7 +5,7 @@ public class Chunk
 {
     public List<List<GameObject>> tiles = new List<List<GameObject>>();
     private Rect rectOfChunk;
-    public Chunk(int sizeOfChunck, GameObject tile, Vector2 posOfTile,int numberOfChunk, float sizeOfTiles, ref GameObject chunk,out  GameObject chunk1)
+    public Chunk(int sizeOfChunck, GameObject tile, Vector2 posOfTile, int numberOfChunk, float sizeOfTiles, List<Cryptos> myCrypto, ref GameObject chunk,out  GameObject chunk1)
     {
         chunk1 = chunk;
         chunk1.transform.position = posOfTile;
@@ -15,7 +15,9 @@ public class Chunk
             List<GameObject> tilesRow = new List<GameObject>();
             for (int x = 0; x < sizeOfChunck; x++)
             {
-                tilesRow.Add(GameObject.Instantiate(tile, new Vector2(posOfTile.x +x, posOfTile.y+ y) * sizeOfTiles, Quaternion.identity));
+                var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y + y) * sizeOfTiles, Quaternion.identity);
+                myTile.GetComponent<TileBehavior>().ApplyCrypto(ChoseCrypto(myCrypto));
+                tilesRow.Add(myTile);
                 tilesRow[tilesRow.Count - 1].transform.SetParent(chunk1.transform);
             }
             tiles.Add(tilesRow);
@@ -43,6 +45,19 @@ public class Chunk
             else if(playerPos.y >rectOfChunk.yMax)
                 currentDir ^= direction.north;
         }
+    }
+    private Cryptos ChoseCrypto(List<Cryptos> myCryptos)
+    {
+        List<Cryptos> _cryptos = new List<Cryptos>();
+        for (int i = 0; i < myCryptos.Count; i++)
+        {
+            float randomValue = Random.Range(0, 100);
+            if (randomValue < myCryptos[i].chanceOfAppearance)
+            {
+                _cryptos.Add(myCryptos[i]);
+            }
+        }
+        return _cryptos[Random.Range(0, _cryptos.Count)];
     }
 }
 [System.Flags]

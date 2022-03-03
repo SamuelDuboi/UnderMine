@@ -9,6 +9,7 @@ public class TileGenerator : MonoBehaviour
     public direction direction;
     public static TileGenerator instance;
     private Vector2Int currentChunk;
+    public List<Cryptos> myCryptos;
 #if UNITY_EDITOR
     public float sizeOfTile = 1;
     public int numberOfTilesPerChunk = 12;
@@ -24,7 +25,7 @@ public class TileGenerator : MonoBehaviour
     }
     void Start()
     {
-        currentCard = new Card(new GameObject(),numberOfTilesPerChunk);
+        currentCard = new Card(new GameObject(),numberOfTilesPerChunk, myCryptos);
         currentCard.Populate(tilePrefab, sizeOfTile);
         currentChunk = Vector2Int.right;
     }
