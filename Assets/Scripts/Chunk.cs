@@ -5,25 +5,36 @@ public class Chunk
 {
     public List<List<GameObject>> tiles = new List<List<GameObject>>();
     private Rect rectOfChunk;
-    public Chunk(int sizeOfChunck, GameObject tile, Vector2 posOfTile, int numberOfChunk, float sizeOfTiles, List<Cryptos> myCrypto, ref GameObject chunk,out  GameObject chunk1)
+    public Chunk(int sizeOfChunckX,int sizeOfChunkY, GameObject tile, Vector2 posOfTile, bool isStone, float sizeOfTiles, List<Cryptos> myCrypto, ref GameObject chunk,out  GameObject chunk1)
     {
         chunk1 = chunk;
         chunk1.transform.position = posOfTile;
        
-        for (int y = 0; y < sizeOfChunck; y++)
+        for (int y = 0; y < sizeOfChunkY; y++)
         {
             List<GameObject> tilesRow = new List<GameObject>();
-            for (int x = 0; x < sizeOfChunck; x++)
+            for (int x = 0; x < sizeOfChunckX; x++)
             {
                 var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y + y) * sizeOfTiles, Quaternion.identity);
-                myTile.GetComponent<TileBehavior>().ApplyCrypto(ChoseCrypto(myCrypto));
+                myTile.GetComponent<TileBehavior>().ApplyCrypto(ChoseCrypto(myCrypto), isStone, false);
                 tilesRow.Add(myTile);
                 tilesRow[tilesRow.Count - 1].transform.SetParent(chunk1.transform);
             }
             tiles.Add(tilesRow);
             
         }
-        rectOfChunk = new Rect(posOfTile*sizeOfTiles,Vector2.one*sizeOfChunck*sizeOfTiles);
+        List<GameObject> tilesRow2 = new List<GameObject>();
+        for (int x = 0; x < sizeOfChunckX; x++)
+        {
+            var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y ) * sizeOfTiles -(Vector2.down* sizeOfChunkY), Quaternion.identity);
+            myTile.GetComponent<TileBehavior>().ApplyCrypto(myCrypto[myCrypto.Count-1], isStone, true);
+            tilesRow2.Add(myTile);
+            tilesRow2[tilesRow2.Count - 1].transform.SetParent(chunk1.transform);
+        }
+        tiles.Add(tilesRow2);
+
+
+        rectOfChunk = new Rect(posOfTile*sizeOfTiles,new Vector2 (sizeOfChunckX,sizeOfChunkY)*sizeOfTiles);
     }
 
     public void IsWithinChunk(Vector2 playerPos, out direction currentDir)
@@ -59,6 +70,7 @@ public class Chunk
         }
         return _cryptos[Random.Range(0, _cryptos.Count)];
     }
+   
 }
 [System.Flags]
 public enum  direction :byte

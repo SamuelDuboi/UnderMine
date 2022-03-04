@@ -7,7 +7,8 @@ public class Cryptos : ScriptableObject
 {
     public CryptosType myCurrency;
     public float currentValue;
-    public Material cryptoMat;
+    public Material cryptoMatDirt;
+    public Material cryptoMatStone;
     [Range(0, 99)]
     public float chanceOfAppearance;
 }

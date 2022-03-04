@@ -18,10 +18,11 @@ public class PlayerMovement : MonoBehaviour
     public Character minor;
     private float timeBetweenClick;
     public System.Action doubleClik;
+    private Vector2 positionToReach;
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
-        transform.position += new Vector3(1.5f,1.5f) * TileGenerator.instance.GetSize();
+        //transform.position = ;
         colliderRect = new Rect(boxCollider.center, boxCollider.size);
         tileTargeted = new List<TileBehavior>();
     }
@@ -77,6 +78,10 @@ public class PlayerMovement : MonoBehaviour
                     tileTargeted.Add(_tileTargeted);
                 }
             }
+            else
+            {
+                positionToReach = Camera.main.ScreenToWorldPoint(mousePos);
+            }
         }
         else if (tileTargeted.Count>0 && tileTargeted[0]!= null) 
         {
@@ -85,7 +90,17 @@ public class PlayerMovement : MonoBehaviour
             if (movement.magnitude < 0.2f)
             {
                 movement = Vector2.zero;
+                tileTargeted[0].UnSelect();
                 tileTargeted.RemoveAt(0);
+            }
+        }
+        else if(positionToReach != Vector2.zero)
+        {
+            movement = (positionToReach -(Vector2) transform.position);
+            if (movement.magnitude < 0.2f)
+            {
+                movement = Vector2.zero;
+               positionToReach = Vector2.zero;
             }
         }
         else
@@ -101,8 +116,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movingDirection = Vector2.zero;
         if(direction.x>0.1)
         {
-            if (tileSelected)
-               tileSelected= tileSelected.UnSelect();
+           
             movingDirection += Vector2.right;
             for (int i = 0; i < 3; i++)
             {
@@ -124,8 +138,7 @@ public class PlayerMovement : MonoBehaviour
         else if(direction.x < -0.1f)
         {
             movingDirection += Vector2.left;
-            if (tileSelected)
-                tileSelected = tileSelected.UnSelect();
+          
             for (int i = 0; i < 3; i++)
             {
                 if(Raycast(Vector2.left, transform.position + new Vector3(-colliderRect.xMax / 2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2),out hit))
@@ -143,8 +156,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (direction.y < 0)
         {
-            if (tileSelected && direction.y != 0)
-                tileSelected = tileSelected.UnSelect();
+            
             movingDirection += Vector2.down;
             for (int i = 0; i < 3; i++)
             {
@@ -166,9 +178,6 @@ public class PlayerMovement : MonoBehaviour
         else if (direction.y > 0.1f)
         {
             movingDirection += Vector2.up;
-            if (tileSelected)
-                tileSelected = tileSelected.UnSelect();
-
             for (int i = 0; i < 3; i++)
             {
                 if( Raycast(Vector2.up, transform.position - new Vector3(colliderRect.xMax - colliderRect.size.x / 2 - i * colliderRect.size.y / 2, -colliderRect.yMax / 2),out hit))

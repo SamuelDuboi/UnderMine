@@ -17,8 +17,8 @@ public class TileBehavior : MonoBehaviour
     {
         if (myTile.isDigged)
         {
-            collider.enabled = false;
-            meshRenderer.enabled = false;
+            ChangeColor(Color.clear);
+            gameObject.layer = 8;
             return null;
         }
 
@@ -29,8 +29,8 @@ public class TileBehavior : MonoBehaviour
     {
         if (myTile.isDigged)
         {
-            collider.enabled = false;
-            meshRenderer.enabled = false;
+            ChangeColor(Color.clear);
+            gameObject.layer = 8;
             return myTile.cryptoType.currentValue;
         }
 
@@ -47,7 +47,10 @@ public class TileBehavior : MonoBehaviour
     }
     public TileBehavior UnSelect()
     {
-        ChangeColor(Color.black);
+        if (myTile.isDigged)
+            ChangeColor(Color.clear);
+        else
+            ChangeColor(Color.black);
         return null;
     }
     private void ChangeColor(Color color)
@@ -57,10 +60,19 @@ public class TileBehavior : MonoBehaviour
         propBlock.SetColor("_Color", color);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyCrypto(Cryptos crypto)
+    public void ApplyCrypto(Cryptos crypto, bool isStone, bool _isDigged)
     {
+        if (_isDigged)
+        {
+            myTile = new Tile(0, crypto);
+            ChangeColor(Color.clear);
+        }
+        else
         myTile = new Tile(timeToDig, crypto);
-        meshRenderer.material = crypto.cryptoMat;
+        if(!isStone)
+            meshRenderer.material = crypto.cryptoMatDirt;
+        else
+            meshRenderer.material = crypto.cryptoMatStone;
     }
     public CryptosType GetCryptoTyp()
     {

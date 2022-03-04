@@ -12,7 +12,8 @@ public class TileGenerator : MonoBehaviour
     public List<Cryptos> myCryptos;
 #if UNITY_EDITOR
     public float sizeOfTile = 1;
-    public int numberOfTilesPerChunk = 12;
+    public int numberOfTilesPerChunkX = 12;
+    public int numberOfTilesPerChunkY = 12;
 #endif
     private void Awake()
     {
@@ -25,7 +26,7 @@ public class TileGenerator : MonoBehaviour
     }
     void Start()
     {
-        currentCard = new Card(new GameObject(),numberOfTilesPerChunk, myCryptos);
+        currentCard = new Card(new GameObject(),numberOfTilesPerChunkX,numberOfTilesPerChunkY, myCryptos);
         currentCard.Populate(tilePrefab, sizeOfTile);
         currentChunk = Vector2Int.right;
     }
@@ -59,8 +60,8 @@ public class TileGenerator : MonoBehaviour
             currentChunk.x++;
         }
     }
-    public float GetSize()
+    public Vector3 GetSize()
     {
-        return currentCard.sizeOfChunk*sizeOfTile;
+        return new Vector3( currentCard.sizeOfChunkX*sizeOfTile, currentCard.sizeOfChunkY * sizeOfTile,0) ;
     }
 }
