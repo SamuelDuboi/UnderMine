@@ -9,6 +9,7 @@ public class Cryptos : ScriptableObject
     public float currentValue;
     public Material cryptoMatDirt;
     public Material cryptoMatStone;
+    public float difficultyToMine=1;
     [Range(0, 99)]
     public float chanceOfAppearance;
 }

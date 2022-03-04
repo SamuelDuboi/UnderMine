@@ -9,12 +9,19 @@ public class Minor : Character
     private Vector2 movement;
     private TileBehavior tile;
     public List<TextMeshProUGUI>coinValue = new List<TextMeshProUGUI>();
+    private List<int> values;
     internal override void Start()
     {
         base.Start();
-        for (int i = 0; i < currentPlayer.myCryptos.Count; i++)
+        /*  for (int i = 0; i < currentPlayer.myCryptos.Count; i++)
+          {
+              coinValue[i].text = currentPlayer.GetNumberOwned(i).ToString();
+          }*/
+        values = new List<int>();
+        for (int i = 0; i <3; i++)
         {
-            coinValue[i].text = currentPlayer.GetNumberOwned(i).ToString();
+            coinValue[i].text = (3*i).ToString();
+            values.Add(3 * 1);
         }
     }
     internal override  void Update()
@@ -24,7 +31,9 @@ public class Minor : Character
             float value = tile.Collect();
             if (value > 0)
             {
-                coinValue[(int)tile.GetCryptoTyp()].text = currentPlayer.ChangeValue(tile.GetCryptoTyp(), value).ToString();
+                // coinValue[(int)tile.GetCryptoTyp()].text = currentPlayer.ChangeValue(tile.GetCryptoTyp(), 1).ToString();
+                values[(int)tile.GetCryptoTyp()]++;
+                coinValue[(int)tile.GetCryptoTyp()].text =values[(int)tile.GetCryptoTyp()].ToString();
                 tile = null;
             }
         }

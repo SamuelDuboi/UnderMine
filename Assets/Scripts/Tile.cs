@@ -6,7 +6,7 @@ public class Tile
 {
     public Sprite currentSprite;
     public Cryptos cryptoType{ get; private set; }
-    public bool isDigged { get; private set; }
+    public bool isDigged { get;  set; }
     private float DiggingState { get;  set; }
     public Tile (float diggingState, Cryptos _cryptoType)
     {

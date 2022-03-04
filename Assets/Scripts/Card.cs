@@ -51,7 +51,7 @@ public class Card
                     bool isStone = true;
                     if ((-chunksGO.Count * sizeOfChunkY) % 2 == 0)
                         isStone = false;
-                    chunkRow.Add(new Chunk(sizeOfChunkX,sizeOfChunkY, tilePrefab, new Vector2(chunksGO[0][i].transform.position.x, -chunksGO.Count * sizeOfChunkY), isStone, sizeOfTiles, myCryptos, ref newGO, out newGO));
+                    chunkRow.Add(new Chunk(sizeOfChunkX,sizeOfChunkY, tilePrefab, new Vector2(chunksGO[0][i].transform.position.x, -chunksGO.Count * sizeOfChunkY), isStone, sizeOfTiles, myCryptos,i, ref newGO, out newGO));
                     if (!chunksGO[(int)position.y][i].activeSelf)
                         newGO.SetActive(false);
                     newGO.transform.SetParent(card.transform);
@@ -79,7 +79,7 @@ public class Card
                     bool isStone = true;
                     if (i * sizeOfChunkY % 2 == 0)
                         isStone = false;
-                    chunks[i].Add(new Chunk(sizeOfChunkX, sizeOfChunkY, tilePrefab, new Vector2(chunksGO[i][xValue - 1].transform.position.x + 1 * sizeOfChunkX, -i * sizeOfChunkY), isStone, sizeOfTiles, myCryptos, ref newGO, out newGO));
+                    chunks[i].Add(new Chunk(sizeOfChunkX, sizeOfChunkY, tilePrefab, new Vector2(chunksGO[i][xValue - 1].transform.position.x + 1 * sizeOfChunkX, -i * sizeOfChunkY), isStone, sizeOfTiles, myCryptos,i, ref newGO, out newGO));
                     if (!chunksGO[i][(int)position.x].activeSelf)
                         newGO.SetActive(false);
                     newGO.transform.SetParent(card.transform);
@@ -101,7 +101,7 @@ public class Card
                     bool isStone = true;
                     if ((-i * sizeOfChunkY) % 2 == 0)
                         isStone = false;
-                    chunks[i].Insert(0, new Chunk(sizeOfChunkX, sizeOfChunkY, tilePrefab, new Vector2(chunksGO[i][0].transform.position.x - 1 * sizeOfChunkX, -i * sizeOfChunkY), isStone, sizeOfTiles, myCryptos, ref newGO, out newGO));
+                    chunks[i].Insert(0, new Chunk(sizeOfChunkX, sizeOfChunkY, tilePrefab, new Vector2(chunksGO[i][0].transform.position.x - 1 * sizeOfChunkX, -i * sizeOfChunkY), isStone, sizeOfTiles, myCryptos,i, ref newGO, out newGO));
                     if (!chunksGO[i][(int)position.x].activeSelf)
                         newGO.SetActive(false);
                     newGO.transform.SetParent(card.transform);
@@ -122,7 +122,6 @@ public class Card
     }
     public void Populate(GameObject tilePrefab, float sizeOfTiles)
     {
-        int currentStrat = 0;
         for (int y = 0; y < numberOfChunkToLoad; y++)
         {
             List<Chunk> chunkRow = new List<Chunk>();
@@ -136,13 +135,12 @@ public class Card
                     isStone = false;
                 if (y == 2)
                     valueOfy = 8f / 3f;
-                chunkRow.Add(new Chunk(sizeOfChunkX, sizeOfChunkY+currentStrat*2, tilePrefab, new Vector2(sizeOfChunkX*x, -(sizeOfChunkY*y +3* valueOfy)) , isStone, sizeOfTiles, myCryptos, ref newGo, out newGo));
+                chunkRow.Add(new Chunk(sizeOfChunkX, sizeOfChunkY, tilePrefab, new Vector2(sizeOfChunkX*x, -((sizeOfChunkY+1)*y)) , isStone, sizeOfTiles, myCryptos,y, ref newGo, out newGo));
                 newGo.transform.SetParent(card.transform);
                 chunkRowGO.Add(newGo);
             }
             chunks.Add(chunkRow);
             chunksGO.Add(chunkRowGO);
-            currentStrat++;
         }
         for (int i = 0; i < chunksGO.Count; i++)
         {

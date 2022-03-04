@@ -10,11 +10,10 @@ public class TileGenerator : MonoBehaviour
     public static TileGenerator instance;
     private Vector2Int currentChunk;
     public List<Cryptos> myCryptos;
-#if UNITY_EDITOR
     public float sizeOfTile = 1;
     public int numberOfTilesPerChunkX = 12;
     public int numberOfTilesPerChunkY = 12;
-#endif
+    public float globalMultiplicator = 0.5f;
     private void Awake()
     {
         if (instance == null)

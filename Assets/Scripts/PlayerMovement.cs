@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float timeBetweenClick;
     public System.Action doubleClik;
     private Vector2 positionToReach;
+    public LayerMask mouseLayer;
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
             Ray mousRay = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
            
-            if (Physics.Raycast(mousRay, out hit))
+            if (Physics.Raycast(mousRay, out hit,Mathf.Infinity, mouseLayer))
             {
                 var _tileTargeted = hit.collider.GetComponent<TileBehavior>();
                 if (!tileTargeted.Contains(_tileTargeted))

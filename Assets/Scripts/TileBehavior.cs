@@ -60,12 +60,15 @@ public class TileBehavior : MonoBehaviour
         propBlock.SetColor("_Color", color);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyCrypto(Cryptos crypto, bool isStone, bool _isDigged)
+    public void ApplyCrypto(Cryptos crypto, bool isStone, bool _isDigged, int strat)
     {
+        timeToDig += strat * TileGenerator.instance.globalMultiplicator + crypto.difficultyToMine;
         if (_isDigged)
         {
             myTile = new Tile(0, crypto);
             ChangeColor(Color.clear);
+            gameObject.layer = 8;
+            myTile.isDigged = true;
         }
         else
         myTile = new Tile(timeToDig, crypto);

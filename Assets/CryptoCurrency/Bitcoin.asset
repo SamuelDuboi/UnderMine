@@ -16,4 +16,5 @@ MonoBehaviour:
   currentValue: 100
   cryptoMatDirt: {fileID: 2100000, guid: 9c1b27d6766089345b518de3bd3bd59d, type: 2}
   cryptoMatStone: {fileID: 2100000, guid: b6623de603051ad40bbcf258709db7e9, type: 2}
-  chanceOfAppearance: 10
+  difficultyToMine: 0.2
+  chanceOfAppearance: 8
