@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(mousRay, out hit,Mathf.Infinity, mouseLayer))
             {
                 var _tileTargeted = hit.collider.GetComponent<TileBehavior>();
-                if (!tileTargeted.Contains(_tileTargeted))
+                if (_tileTargeted && !tileTargeted.Contains(_tileTargeted))
                 {
                     _tileTargeted.Target();
                     tileTargeted.Add(_tileTargeted);
@@ -88,9 +88,10 @@ public class PlayerMovement : MonoBehaviour
         {
           
             movement = (tileTargeted[0].transform.position - transform.position);
-            if (movement.magnitude < 0.2f)
+            if (movement.magnitude < 0.05f)
             {
                 movement = Vector2.zero;
+                transform.position = tileTargeted[0].transform.position;
                 tileTargeted[0].UnSelect();
                 tileTargeted.RemoveAt(0);
             }
@@ -98,10 +99,11 @@ public class PlayerMovement : MonoBehaviour
         else if(positionToReach != Vector2.zero)
         {
             movement = (positionToReach -(Vector2) transform.position);
-            if (movement.magnitude < 0.2f)
+            if (movement.magnitude < 0.05f)
             {
                 movement = Vector2.zero;
-               positionToReach = Vector2.zero;
+                transform.position = positionToReach;
+                positionToReach = Vector2.zero;
             }
         }
         else

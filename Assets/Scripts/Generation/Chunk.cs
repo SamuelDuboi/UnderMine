@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Chunk
+[System.Serializable]
+public class Chunk : MonoBehaviour
 {
-    public List<List<GameObject>> tiles = new List<List<GameObject>>();
-    private Rect rectOfChunk;
+    public List<List<GameObject>> tiles ;
+    public Rect rectOfChunk;
     public int numberOfCryptoPerChunk = 182;
-    public Chunk(int sizeOfChunckX,int sizeOfChunkY, GameObject tile, Vector2 posOfTile, bool isStone, float sizeOfTiles, List<Cryptos> myCrypto,int strat, ref GameObject chunk,out  GameObject chunk1)
+    public int sizeOfChunkInX;
+    public void Init(int sizeOfChunckX,int sizeOfChunkY,int indexOfChunk, GameObject tile, Vector2 posOfTile, bool isStone, float sizeOfTiles, List<Cryptos> myCrypto,int strat, ref GameObject chunk,out  GameObject chunk1)
     {
-
+        sizeOfChunkInX = sizeOfChunckX;
+        if (tiles == null)
+            tiles = new List<List<GameObject>>();
         chunk1 = chunk;
         chunk1.transform.position = posOfTile;
         for (int y = 0; y < sizeOfChunkY; y++)
@@ -17,9 +20,10 @@ public class Chunk
             for (int x = 0; x < sizeOfChunckX; x++)
             {
                 var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y + y) * sizeOfTiles, Quaternion.identity);
-                myTile.GetComponent<TileBehavior>().ApplyCrypto(ChoseCrypto(myCrypto,strat), isStone, false,strat);
-                tilesRow.Add(myTile);
-                tilesRow[tilesRow.Count - 1].transform.SetParent(chunk1.transform);
+                var crypto = ChoseCrypto(myCrypto, strat);
+                TileBehavior myTileBehavior = myTile.GetComponent<TileBehavior>();
+                myTileBehavior.ApplyCrypto(myCrypto.IndexOf(crypto), myCrypto, isStone, false,strat, new Vector2(x,y));
+                myTile.transform.SetParent(chunk1.transform);
             }
             tiles.Add(tilesRow);
             
@@ -28,16 +32,38 @@ public class Chunk
         for (int x = 0; x < sizeOfChunckX; x++)
         {
             var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y ) * sizeOfTiles -(Vector2.down* sizeOfChunkY), Quaternion.identity);
-            myTile.GetComponent<TileBehavior>().ApplyCrypto(myCrypto[myCrypto.Count-1], isStone, true,strat);
-            tilesRow2.Add(myTile);
-            tilesRow2[tilesRow2.Count - 1].transform.SetParent(chunk1.transform);
+            TileBehavior myTileBehavior = myTile.GetComponent<TileBehavior>();
+            myTileBehavior.ApplyCrypto(myCrypto.Count-1, myCrypto, isStone, true,strat, new Vector2(x, 0));
+            myTile.transform.SetParent(chunk1.transform);
         }
         tiles.Add(tilesRow2);
-
-
         rectOfChunk = new Rect(posOfTile*sizeOfTiles,new Vector2 (sizeOfChunckX,sizeOfChunkY)*sizeOfTiles);
     }
-
+    
+    public void DestroyExistingChunk(List<TileForSave> tilesToSpawn, List<Cryptos> myCryptos)
+    {
+        // i know but Simon Gonand told me it was ok
+        if (tiles == null)
+        {
+            tiles = new List<List<GameObject>>();
+            int yValue = 1;
+            List<GameObject> tempTile = new List<GameObject>();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                tempTile.Add(transform.GetChild(i).gameObject);
+                if (i == yValue * sizeOfChunkInX)
+                {
+                    yValue++;
+                    tiles.Add(tempTile);
+                    tempTile = new List<GameObject>();
+                }
+            }
+        }
+        foreach (var tile in tilesToSpawn)
+        {
+            tiles[(int)tile.posInStart.y][(int)tile.posInStart.x].GetComponent<TileBehavior>().ApplyCrypto(myCryptos.Count - 1, myCryptos, tile.isStone, true, tile.indexParentChunk, tile.posInStart );
+        }
+    }
     public void IsWithinChunk(Vector2 playerPos, out direction currentDir)
     {
         currentDir = 0;
@@ -84,6 +110,7 @@ public class Chunk
     }
    
 }
+
 [System.Flags]
 public enum  direction :byte
 {

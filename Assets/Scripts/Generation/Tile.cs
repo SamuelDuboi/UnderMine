@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Tile 
+public class Tile : MonoBehaviour
 {
     public Sprite currentSprite;
-    public Cryptos cryptoType{ get; private set; }
-    public bool isDigged { get;  set; }
-    private float DiggingState { get;  set; }
-    public Tile (float diggingState, Cryptos _cryptoType)
+    public Cryptos cryptoType;
+    public int strat;
+    public Vector2 position;
+    public bool isDigged;
+    public float DiggingState;
+    public int indexParentChunk;
+    public bool isStone;
+    public void Init (float diggingState, Cryptos _cryptoType, Vector2 _position, int _indexParentChunk, bool _isStone)
     {
         DiggingState = diggingState;
         cryptoType = _cryptoType;
+        position = _position;
+        indexParentChunk = _indexParentChunk;
+        isStone = _isStone;
     }
+
 
     /// <summary>
     /// return true if is digged

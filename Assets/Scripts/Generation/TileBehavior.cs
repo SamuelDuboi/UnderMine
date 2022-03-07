@@ -5,9 +5,10 @@ using UnityEngine;
 public class TileBehavior : MonoBehaviour
 {
     public float timeToDig;
-    private Tile myTile;
+    [SerializeField][HideInInspector] private Tile myTile;
     public MeshRenderer meshRenderer;
     public BoxCollider collider;
+    
     void Start()
     {
         
@@ -19,6 +20,7 @@ public class TileBehavior : MonoBehaviour
         {
             ChangeColor(Color.clear);
             gameObject.layer = 8;
+            SaveSystem.Instance.Saving(new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
             return null;
         }
 
@@ -60,22 +62,28 @@ public class TileBehavior : MonoBehaviour
         propBlock.SetColor("_Color", color);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyCrypto(Cryptos crypto, bool isStone, bool _isDigged, int strat)
+    public void ApplyCrypto(int cryptoIndex,List<Cryptos> crypto, bool isStone, bool _isDigged, int indexOfChunk,Vector2  pos)
     {
-        timeToDig += strat * TileGenerator.instance.globalMultiplicator + crypto.difficultyToMine;
+        var mycrypto = crypto[cryptoIndex];
+        timeToDig += indexOfChunk/3 /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        myTile = gameObject.AddComponent<Tile>();
         if (_isDigged)
         {
-            myTile = new Tile(0, crypto);
+            myTile.Init(0, mycrypto, pos,indexOfChunk,  isStone);
             ChangeColor(Color.clear);
             gameObject.layer = 8;
             myTile.isDigged = true;
         }
         else
-        myTile = new Tile(timeToDig, crypto);
+        myTile.Init(timeToDig, mycrypto, pos,indexOfChunk, isStone);
         if(!isStone)
-            meshRenderer.material = crypto.cryptoMatDirt;
+            meshRenderer.material = mycrypto.cryptoMatDirt;
         else
-            meshRenderer.material = crypto.cryptoMatStone;
+            meshRenderer.material = mycrypto.cryptoMatStone;
+    }
+    public Tile GetTile()
+    {
+        return myTile;
     }
     public CryptosType GetCryptoTyp()
     {

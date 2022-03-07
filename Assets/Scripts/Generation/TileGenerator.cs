@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TileGenerator : MonoBehaviour
 {
-    Card currentCard ;
+    public Card currentCard ;
     public GameObject tilePrefab;
     public direction direction;
     public static TileGenerator instance;
-    private Vector2Int currentChunk;
+    public  Vector2Int currentChunk;
     public List<Cryptos> myCryptos;
     public float sizeOfTile = 1;
     public int numberOfTilesPerChunkX = 12;
@@ -25,14 +25,31 @@ public class TileGenerator : MonoBehaviour
     }
     void Start()
     {
-        currentCard = new Card(new GameObject(),numberOfTilesPerChunkX,numberOfTilesPerChunkY, myCryptos);
+        var save = SaveSystem.Instance.tempClass;
+        for (int i = 0; i < currentCard.chunks.Count; i++)
+        {
+            List<TileForSave> tiles = new List<TileForSave>();
+            foreach (var tile in save.tile)
+            {
+                if (tile.indexParentChunk == i)
+                    tiles.Add(tile);
+            }
+            currentCard.chunks[i].DestroyExistingChunk(tiles, myCryptos);
+        }
+
+    }
+    public void Populate()
+    {
+        var value = Instantiate(new GameObject());
+        value.name = "Card";
+        currentCard = value.AddComponent<Card>();
+        currentCard.Init(value, numberOfTilesPerChunkX, numberOfTilesPerChunkY, myCryptos);
         currentCard.Populate(tilePrefab, sizeOfTile);
         currentChunk = Vector2Int.right;
     }
-
     public void CheckPos(Vector2 playerPos)
     {
-        currentCard.chunks[currentChunk.y][currentChunk.x].IsWithinChunk(playerPos, out direction);
+        currentCard.chunks[currentChunk.x + currentChunk.y*3].IsWithinChunk(playerPos, out direction);
         if (direction.HasFlag(direction.north))
         {
             if (currentChunk.y > 1)
