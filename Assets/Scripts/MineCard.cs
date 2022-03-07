@@ -16,7 +16,7 @@ public class MineCard : ScriptableObject
     public float prospect = 0.0f;
     public float construct = 0.0f;
     public float incomeParMinute = 0.0f;
-    public MineInventory inventory = new();
+    public MineInventory inventory = new MineInventory();
 
 }
 
