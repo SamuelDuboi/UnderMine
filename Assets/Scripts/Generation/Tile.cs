@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour
         DiggingState = diggingState;
         cryptoType = _cryptoType;
         position = _position;
+        position.x--;
         indexParentChunk = _indexParentChunk;
         isStone = _isStone;
     }

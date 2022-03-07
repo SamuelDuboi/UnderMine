@@ -22,7 +22,7 @@ public class Chunk : MonoBehaviour
                 var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y + y) * sizeOfTiles, Quaternion.identity);
                 var crypto = ChoseCrypto(myCrypto, strat);
                 TileBehavior myTileBehavior = myTile.GetComponent<TileBehavior>();
-                myTileBehavior.ApplyCrypto(myCrypto.IndexOf(crypto), myCrypto, isStone, false,strat, new Vector2(x,y));
+                myTileBehavior.ApplyCrypto(myCrypto.IndexOf(crypto), myCrypto, isStone, false, indexOfChunk, new Vector2(x,y));
                 myTile.transform.SetParent(chunk1.transform);
             }
             tiles.Add(tilesRow);
@@ -33,7 +33,7 @@ public class Chunk : MonoBehaviour
         {
             var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y ) * sizeOfTiles -(Vector2.down* sizeOfChunkY), Quaternion.identity);
             TileBehavior myTileBehavior = myTile.GetComponent<TileBehavior>();
-            myTileBehavior.ApplyCrypto(myCrypto.Count-1, myCrypto, isStone, true,strat, new Vector2(x, 0));
+            myTileBehavior.ApplyCrypto(myCrypto.Count-1, myCrypto, isStone, true,indexOfChunk, new Vector2(x, 0));
             myTile.transform.SetParent(chunk1.transform);
         }
         tiles.Add(tilesRow2);

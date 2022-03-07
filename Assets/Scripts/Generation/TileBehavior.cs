@@ -66,6 +66,7 @@ public class TileBehavior : MonoBehaviour
     {
         var mycrypto = crypto[cryptoIndex];
         timeToDig += indexOfChunk/3 /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        if(!myTile)
         myTile = gameObject.AddComponent<Tile>();
         if (_isDigged)
         {
