@@ -61,10 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Empty: 1
-    - Selected: 0
-    - _LerpValue: 1
+    - _LerpValue: 0
     m_Colors:
-    - ColorSelection: {r: 0.22745098, g: 0.1764706, b: 0.15294118, a: 1}
-    - _Color: {r: 0, g: 0, b: 0, a: 0.8509804}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
