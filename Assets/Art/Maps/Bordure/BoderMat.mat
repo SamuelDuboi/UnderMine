@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TempTileMat
-  m_Shader: {fileID: -6465566751694194690, guid: 9720172e1c5c0b2458d8a185a4e1b396, type: 3}
+  m_Name: BoderMat
+  m_Shader: {fileID: -6465566751694194690, guid: c467db0399c4d7245bf130f35805a3dd, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,28 +19,32 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _SampleTexture2D_0581c1c3a68748e1802462174473212f_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 7c6b5cfe80d800246aed9b8664d5e598, type: 3}
+    - AO:
+        m_Texture: {fileID: 2800000, guid: 6404b36cb2870204d80d64c194352ad0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_08410181680243bdb374f208a380d82b_Texture_1:
-        m_Texture: {fileID: 2800000, guid: a5d62f299df19364c8376e2ac7467ae3, type: 3}
+    - D:
+        m_Texture: {fileID: 2800000, guid: 9408d7412edef0c489982c670558389c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_47031fbd039e4d389a942b919a15a094_Texture_1:
-        m_Texture: {fileID: 2800000, guid: b8deb457d328edf489bfe0bd5f2f3332, type: 3}
+    - MT:
+        m_Texture: {fileID: 2800000, guid: d2401773a072bf946928c1b5dc541f4a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_6e69d54e094348ecabcb2688f0e81631_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 86d40e0dc81c8ff47a205f9ec8d7b7ab, type: 3}
+    - N:
+        m_Texture: {fileID: 2800000, guid: 8be35017c5824d045bb83ef492d2197b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_a1b1e534d1fd4bfaa6d4a5f369b44bf7_Texture_1:
-        m_Texture: {fileID: 2800000, guid: ecaeb2d402e90a548909851432757c3c, type: 3}
+    - Opacity:
+        m_Texture: {fileID: 2800000, guid: e87b8457f1f83c64fbf346a5b2c01e64, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_eace9b14e79547e69757b4d364f55722_Texture_1:
-        m_Texture: {fileID: 2800000, guid: f7688cc0e1a12654c83b9f023d305afc, type: 3}
+    - R:
+        m_Texture: {fileID: 2800000, guid: 5de71dded48920a4e932ce013faeaeaa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -57,11 +61,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Alpha: 1
     - Empty: 1
     - Selected: 0
+    - _LerpValue: 1
     m_Colors:
-    - ColorSelection: {r: 0.2264151, g: 0.17563362, b: 0.15485938, a: 0.1960784}
-    - Selected: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 0, b: 0, a: 0.19607843}
+    - ColorSelection: {r: 0.22745098, g: 0.1764706, b: 0.15294118, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 0.8509804}
   m_BuildTextureStacks: []
