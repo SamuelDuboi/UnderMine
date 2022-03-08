@@ -28,7 +28,7 @@ public class Minor : Character
        
         //change to the actual index of the Mine
         values = SaveSystem.Instance.mines[0].cryptosValue;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             coinValue[i].text = values[i].ToString();
         }

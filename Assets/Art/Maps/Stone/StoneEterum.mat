@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - AO:
-        m_Texture: {fileID: 2800000, guid: 85a97dca295c69f4e9f175e217eb8825, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87d7684b14212cf4ca1df43a974f2092, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - D:
@@ -28,15 +28,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - MT:
-        m_Texture: {fileID: 2800000, guid: fcc30d1c58cef0d469e88376daac9575, type: 3}
+        m_Texture: {fileID: 2800000, guid: 81547c428c16d6c459bd48ce67bc4dd8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - N:
-        m_Texture: {fileID: 2800000, guid: e8c9623e7ac62bd4aa319ba5d173a48e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63c4daf7785f5954b86c68da65a35b37, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - R:
-        m_Texture: {fileID: 2800000, guid: ecf0040cd4b3612429f771dec6b608c4, type: 3}
+        m_Texture: {fileID: 2800000, guid: c154211ed4b75124881980a8340f86c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_16c8d0d8000444579ef697bbcb4bfe0e_Texture_1:
@@ -73,7 +73,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Empty: 1
+    - Empty: 0
     - Selected: 0
     m_Colors:
     - ColorCrypto: {r: 0, g: 0, b: 0, a: 1}

@@ -8,17 +8,18 @@ public class TileBehavior : MonoBehaviour
     [SerializeField][HideInInspector] private Tile myTile;
     public MeshRenderer meshRenderer;
     public BoxCollider collider;
-    
+    private Color InitColor;
     void Start()
     {
-        
+        InitColor = new Color(137f/255f, 83f/255f, 58f/255f, 50f/255f);
     }
 
     public TileBehavior Digg()
     {
         if (myTile.isDigged)
         {
-            ChangeColor(Color.clear);
+            Selection(0);
+            Digg(1);
             gameObject.layer = 8;
             //need to be changed to the actual index of the mine
             SaveSystem.Instance.Saving(0,Minor.instance.values,myTile.indexParentChunk, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
@@ -32,7 +33,8 @@ public class TileBehavior : MonoBehaviour
     {
         if (myTile.isDigged)
         {
-            ChangeColor(Color.clear);
+            Selection(0);
+            Digg(1);
             gameObject.layer = 8;
             return myTile.cryptoType.currentValue;
         }
@@ -42,25 +44,39 @@ public class TileBehavior : MonoBehaviour
     }
     public void Select()
     {
-        ChangeColor(Color.yellow);
+        Selection(1);
     }
     public void Target()
     {
-        ChangeColor(Color.blue);
+        Selection(1);
     }
     public TileBehavior UnSelect()
     {
-        if (myTile.isDigged)
-            ChangeColor(Color.clear);
-        else
-            ChangeColor(Color.black);
+        Selection(0);
         return null;
     }
     private void ChangeColor(Color color)
     {
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
         meshRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetColor("_Color", color);
+        propBlock.SetColor("ColorSelection", color);
+        meshRenderer.SetPropertyBlock(propBlock);
+    }
+
+    private void Selection(int value)
+    {
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        meshRenderer.GetPropertyBlock(propBlock);
+        propBlock.SetFloat("Selected", value);
+        meshRenderer.SetPropertyBlock(propBlock);
+    }
+
+    private void Digg(int value)
+    {
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        meshRenderer.GetPropertyBlock(propBlock);
+        propBlock.SetFloat("Empty", value);
+        propBlock.SetColor("ColorSelection", InitColor);
         meshRenderer.SetPropertyBlock(propBlock);
     }
     public void ApplyCrypto(int cryptoIndex,List<Cryptos> crypto, bool isStone, bool _isDigged, int indexOfChunk,Vector2  pos)
@@ -72,7 +88,7 @@ public class TileBehavior : MonoBehaviour
         if (_isDigged)
         {
             myTile.Init(0, mycrypto, pos,indexOfChunk,  isStone);
-            ChangeColor(Color.clear);
+            Digg(1);
             gameObject.layer = 8;
             myTile.isDigged = true;
         }
@@ -82,6 +98,7 @@ public class TileBehavior : MonoBehaviour
             meshRenderer.material = mycrypto.cryptoMatDirt;
         else
             meshRenderer.material = mycrypto.cryptoMatStone;
+
     }
     public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto, bool isStone, int indexOfChunk, Vector2 pos)
     {
@@ -90,7 +107,7 @@ public class TileBehavior : MonoBehaviour
         if (!myTile)
             myTile = gameObject.AddComponent<Tile>();
             myTile.Init(0, mycrypto, pos, indexOfChunk, isStone);
-            ChangeColor(Color.clear);
+        Digg(1);
             gameObject.layer = 8;
             myTile.isDigged = true;
     }
@@ -101,7 +118,7 @@ public class TileBehavior : MonoBehaviour
         if (!myTile)
             myTile = gameObject.AddComponent<Tile>();
         myTile.Init(0, mycrypto);
-        ChangeColor(Color.clear);
+        Digg(1);
         gameObject.layer = 8;
         myTile.isDigged = true;
         if (!myTile.isStone)

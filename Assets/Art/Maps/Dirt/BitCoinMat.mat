@@ -73,10 +73,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Empty: 1
+    - Empty: 0
     - Selected: 0
     m_Colors:
     - ColorCrypto: {r: 0, g: 0, b: 0, a: 1}
-    - ColorSelection: {r: 0.22745098, g: 0.1764706, b: 0.15294118, a: 1}
+    - ColorSelection: {r: 0.5377358, g: 0.3242702, b: 0.22574759, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
