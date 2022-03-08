@@ -26,10 +26,10 @@ public class TileGenerator : MonoBehaviour
     }
     void Start()
     {
-        var save = SaveSystem.Instance.tempClass;
+        // neeed to be change to the actual index of the mine
+       var save = SaveSystem.Instance.mines[0];
         for (int i = 0; i < currentCard.chunks.Count; i++)
         {
-            currentCard.chunks[i].DisableFirstRow(myCryptos);
             List<TileForSave> tiles = new List<TileForSave>();
             foreach (var tile in save.tile)
             {
@@ -37,6 +37,7 @@ public class TileGenerator : MonoBehaviour
                     tiles.Add(tile);
             }
             currentCard.chunks[i].DestroyExistingChunk(tiles, myCryptos);
+            currentCard.chunks[i].DisableFirstRow(myCryptos);
         }
 
     }

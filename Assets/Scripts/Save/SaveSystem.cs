@@ -5,7 +5,7 @@ using System.Linq;
 [System.Serializable]
 public class SaveSystem 
 {
-   public TempClas tempClass;
+    public List<MineData>  mines ;
     private static SaveSystem instance = null;
     public static SaveSystem Instance
     {
@@ -23,12 +23,19 @@ public class SaveSystem
     {
         Load();
     }
-    private void NewSave()
+    private void NewSave(int index)
     {
-        tempClass = new TempClas();
-        tempClass.tile = new List<TileForSave>();
-        var dataPath = Path.Combine(Application.persistentDataPath, "save.json");
-        string json = JsonUtility.ToJson(tempClass);
+        mines.Insert(index, new MineData());
+        mines[index].tile = new List<TileForSave>();
+        mines[index].cryptos = new List<CryptosType>();
+        mines[index].cryptosValue = new List<int>();
+        for (int i = 0; i < 4; i++)
+        {
+            mines[index].cryptos.Add( (CryptosType)i);
+            mines[index].cryptosValue.Add( 0);
+        }
+        var dataPath = Path.Combine(Application.persistentDataPath, "mine" + index.ToString() + ".json");
+        string json = JsonUtility.ToJson(mines[index]);
         Debug.Log(json);
         StreamWriter sw = File.CreateText(dataPath);
         sw.Close();
@@ -36,18 +43,24 @@ public class SaveSystem
     }
     public void Load()
     {
-        var dataPath = Path.Combine(Application.persistentDataPath, "save.json");
-        if (!File.Exists(dataPath))
-            NewSave();
-        string json = File.ReadAllText(dataPath);
-        tempClass = JsonUtility.FromJson<TempClas>(json);
-        Debug.Log(tempClass);
+        mines = new List<MineData>();
+        for (int i = 0; i < 4; i++)
+        {
+            var dataPath = Path.Combine(Application.persistentDataPath, "mine"+i.ToString()+".json");
+            if (!File.Exists(dataPath))
+                NewSave(i);
+            string json = File.ReadAllText(dataPath);
+            mines.Add(JsonUtility.FromJson<MineData>(json));
+            Debug.Log(mines[i]);
+        }
     }
-    public void Saving(TileForSave _tile)
+    public void Saving(int mineIndex, List<int>cryptosValue, int strat, TileForSave _tile)
     {
-        tempClass.tile.Add(_tile);
-        var dataPath = Path.Combine(Application.persistentDataPath, "save.json");
-        string json = JsonUtility.ToJson(tempClass);
+        mines[mineIndex].tile.Add(_tile);
+        mines[mineIndex].cryptosValue = cryptosValue;
+        mines[mineIndex].strat = strat;
+        var dataPath = Path.Combine(Application.persistentDataPath, "mine" + mineIndex.ToString() + ".json");
+        string json = JsonUtility.ToJson(mines[mineIndex]);
         StreamWriter sw = File.CreateText(dataPath);
         sw.Close();
         File.WriteAllText(dataPath, json);
@@ -55,7 +68,10 @@ public class SaveSystem
 }
 
 [System.Serializable]
-public class TempClas
+public class MineData
 {
-        public List<TileForSave> tile;
+    public int strat;
+    public List<CryptosType> cryptos;
+    public List<int> cryptosValue;
+    public List<TileForSave> tile;
 }

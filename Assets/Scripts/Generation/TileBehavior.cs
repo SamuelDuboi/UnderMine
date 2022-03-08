@@ -20,7 +20,8 @@ public class TileBehavior : MonoBehaviour
         {
             ChangeColor(Color.clear);
             gameObject.layer = 8;
-            SaveSystem.Instance.Saving(new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
+            //need to be changed to the actual index of the mine
+            SaveSystem.Instance.Saving(0,Minor.instance.values,myTile.indexParentChunk, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
             return null;
         }
 

@@ -9,19 +9,27 @@ public class Minor : Character
     private Vector2 movement;
     private TileBehavior tile;
     public List<TextMeshProUGUI>coinValue = new List<TextMeshProUGUI>();
-    private List<int> values;
+    [HideInInspector] public List<int> values;
+    public static Minor instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            return;
+        }
+        Destroy(gameObject);
+    }
+
     internal override void Start()
     {
         base.Start();
-        /*  for (int i = 0; i < currentPlayer.myCryptos.Count; i++)
-          {
-              coinValue[i].text = currentPlayer.GetNumberOwned(i).ToString();
-          }*/
-        values = new List<int>();
-        for (int i = 0; i <3; i++)
+       
+        //change to the actual index of the Mine
+        values = SaveSystem.Instance.mines[0].cryptosValue;
+        for (int i = 0; i < 4; i++)
         {
-            coinValue[i].text = (3*i).ToString();
-            values.Add(3 * 1);
+            coinValue[i].text = values[i].ToString();
         }
     }
     internal override  void Update()
