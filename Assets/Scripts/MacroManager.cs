@@ -33,6 +33,16 @@ public class MacroManager : MonoBehaviour
     {
         StartCoroutine(GenerateIncome());
 
+        for (int i = 0; i < listMine.Count; i++)
+        {
+            var myMine = SaveSystem.Instance.mines[i];
+            listMine[i].progress = myMine.strat;
+            for (int x = 0; x < listMine[i].inventory.inventory.Count; x++)
+            {
+                listMine[i].inventory.inventory[myMine.cryptos[x]] = myMine.cryptosValue[x];
+            }
+           
+        }
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
     }
