@@ -10,6 +10,7 @@ public class FakeStockMarket : MonoBehaviour
     public Dictionary<CryptosType, StockState> tradeStates;
     public Dictionary<CryptosType, float> tradeDeltas;
 
+    private List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
 
     public FakeStockMarket() 
     {
@@ -17,10 +18,17 @@ public class FakeStockMarket : MonoBehaviour
         tradeStates = new Dictionary<CryptosType, StockState>();
         tradeDeltas = new Dictionary<CryptosType, float>();
 
-        List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
         foreach(CryptosType ct in cryptoList)
         {
            //TODO
+        }
+    }
+
+    public void UpdateValues()
+    {
+        foreach (CryptosType ct in cryptoList)
+        {
+            //TODO
         }
     }
 }
