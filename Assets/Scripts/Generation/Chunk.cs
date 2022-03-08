@@ -7,7 +7,7 @@ public class Chunk : MonoBehaviour
     public Rect rectOfChunk;
     public int numberOfCryptoPerChunk = 182;
     public int sizeOfChunkInX;
-    public void Init(int sizeOfChunckX,int sizeOfChunkY,int indexOfChunk, GameObject tile, Vector2 posOfTile, bool isStone, float sizeOfTiles, List<Cryptos> myCrypto,int strat, ref GameObject chunk,out  GameObject chunk1)
+    public void Init(int sizeOfChunckX,int sizeOfChunkY,int indexOfChunk, GameObject tile,GameObject tileEmpty, Vector2 posOfTile, bool isStone, float sizeOfTiles, List<Cryptos> myCrypto,int strat, ref GameObject chunk,out  GameObject chunk1)
     {
         sizeOfChunkInX = sizeOfChunckX;
         if (tiles == null)
@@ -31,9 +31,9 @@ public class Chunk : MonoBehaviour
         List<GameObject> tilesRow2 = new List<GameObject>();
         for (int x = 0; x < sizeOfChunckX; x++)
         {
-            var myTile = GameObject.Instantiate(tile, new Vector2(posOfTile.x + x, posOfTile.y ) * sizeOfTiles -(Vector2.down* sizeOfChunkY), Quaternion.identity);
+            var myTile = GameObject.Instantiate(tileEmpty, new Vector2(posOfTile.x + x, posOfTile.y ) * sizeOfTiles -(Vector2.down* sizeOfChunkY), Quaternion.identity);
             TileBehavior myTileBehavior = myTile.GetComponent<TileBehavior>();
-            myTileBehavior.ApplyCrypto(myCrypto.Count-1, myCrypto, isStone, true,indexOfChunk, new Vector2(x, 0));
+            myTileBehavior.ApplyCrypto(myCrypto.Count-1, myCrypto, isStone,indexOfChunk, new Vector2(x, 0));
             myTile.transform.SetParent(chunk1.transform);
         }
         tiles.Add(tilesRow2);

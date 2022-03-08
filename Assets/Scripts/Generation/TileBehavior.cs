@@ -82,10 +82,23 @@ public class TileBehavior : MonoBehaviour
         else
             meshRenderer.material = mycrypto.cryptoMatStone;
     }
+    public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto, bool isStone, int indexOfChunk, Vector2 pos)
+    {
+        var mycrypto = crypto[cryptoIndex];
+        timeToDig += indexOfChunk / 3 /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        if (!myTile)
+            myTile = gameObject.AddComponent<Tile>();
+            myTile.Init(0, mycrypto, pos, indexOfChunk, isStone);
+            ChangeColor(Color.clear);
+            gameObject.layer = 8;
+            myTile.isDigged = true;
+    }
     public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto)
     {
         var mycrypto = crypto[cryptoIndex];
         timeToDig = 0; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        if (!myTile)
+            myTile = gameObject.AddComponent<Tile>();
         myTile.Init(0, mycrypto);
         ChangeColor(Color.clear);
         gameObject.layer = 8;
@@ -95,6 +108,7 @@ public class TileBehavior : MonoBehaviour
         else
             meshRenderer.material = mycrypto.cryptoMatStone;
     }
+
     public Tile GetTile()
     {
         return myTile;
