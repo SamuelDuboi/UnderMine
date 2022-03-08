@@ -82,6 +82,19 @@ public class TileBehavior : MonoBehaviour
         else
             meshRenderer.material = mycrypto.cryptoMatStone;
     }
+    public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto)
+    {
+        var mycrypto = crypto[cryptoIndex];
+        timeToDig = 0; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        myTile.Init(0, mycrypto);
+        ChangeColor(Color.clear);
+        gameObject.layer = 8;
+        myTile.isDigged = true;
+        if (!myTile.isStone)
+            meshRenderer.material = mycrypto.cryptoMatDirt;
+        else
+            meshRenderer.material = mycrypto.cryptoMatStone;
+    }
     public Tile GetTile()
     {
         return myTile;

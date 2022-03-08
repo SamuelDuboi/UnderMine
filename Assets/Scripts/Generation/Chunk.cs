@@ -39,7 +39,14 @@ public class Chunk : MonoBehaviour
         tiles.Add(tilesRow2);
         rectOfChunk = new Rect(posOfTile*sizeOfTiles,new Vector2 (sizeOfChunckX,sizeOfChunkY)*sizeOfTiles);
     }
-    
+
+    public void DisableFirstRow(List<Cryptos> myCryptos)
+    {
+        for (int i = 0; i < sizeOfChunkInX; i++)
+        {
+            tiles[tiles.Count - 1][i].GetComponent<TileBehavior>().ApplyCrypto(myCryptos.Count - 1, myCryptos);
+        }
+    }
     public void DestroyExistingChunk(List<TileForSave> tilesToSpawn, List<Cryptos> myCryptos)
     {
         // i know but Simon Gonand told me it was ok

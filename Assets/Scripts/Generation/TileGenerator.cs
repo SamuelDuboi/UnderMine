@@ -28,6 +28,7 @@ public class TileGenerator : MonoBehaviour
         var save = SaveSystem.Instance.tempClass;
         for (int i = 0; i < currentCard.chunks.Count; i++)
         {
+            currentCard.chunks[i].DisableFirstRow(myCryptos);
             List<TileForSave> tiles = new List<TileForSave>();
             foreach (var tile in save.tile)
             {

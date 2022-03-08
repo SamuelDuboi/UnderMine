@@ -21,7 +21,11 @@ public class Tile : MonoBehaviour
         isStone = _isStone;
     }
 
-
+    public void Init(float diggingState, Cryptos _cryptoType)
+    {
+        DiggingState = diggingState;
+        cryptoType = _cryptoType;
+    }
     /// <summary>
     /// return true if is digged
     /// </summary>
