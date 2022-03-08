@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "MineCard")]
 [System.Serializable]
 public class MineCard : ScriptableObject
 {
 
-    public string seed = "";
+    public string sceneName;
     public Rarity rarity;
     public Biome biome;
     public int progress = 1;

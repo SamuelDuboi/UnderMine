@@ -18,5 +18,6 @@ public enum CryptosType{
     bitcoin,
     dogeCoins,
     Eterum,
+    Tether,
     none
 }

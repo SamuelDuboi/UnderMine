@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MacroManager : MonoBehaviour
@@ -137,8 +138,7 @@ public class MacroManager : MonoBehaviour
         minerSelectionCanvas.SetActive(false);
         mineSelectionCanvas.SetActive(true);
 
-        // TODO : Start game here
-        //
+        SceneManager.LoadScene(selectedMine.sceneName);
     }
 
     private void UpdateMinerButtonsInteractivity()

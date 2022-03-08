@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56527f8fc9e2254698a6129a2144523, type: 3}
+  m_Name: Etherum
+  m_EditorClassIdentifier: 
+  myCurrency: 0
+  currentValue: 80
+  cryptoMatDirt: {fileID: 2100000, guid: 9b2b3c9f02026bd4086223359ffe64be, type: 2}
+  cryptoMatStone: {fileID: 2100000, guid: df4836d8918d56d43972eb5b8ed7858f, type: 2}
+  difficultyToMine: 0.8
+  chanceOfAppearance: 10
