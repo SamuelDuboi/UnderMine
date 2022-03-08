@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MineCardUI : MonoBehaviour
+public class MinerCardUI : MonoBehaviour
 {
-    public MineCard mineCard;
+    public MinerCard minerCard;
     public TextMeshProUGUI rarityText;
     public TextMeshProUGUI biomeText;
-    public TextMeshProUGUI explorationText;
-    public TextMeshProUGUI prospectionText;
-    public TextMeshProUGUI constructionText;
-    public TextMeshProUGUI incomeText;
+    public TextMeshProUGUI movementSpeedText;
+    public TextMeshProUGUI miningSpeedText;
+    public TextMeshProUGUI buildingSpeedText;
+    public TextMeshProUGUI buildingCostText;
 
     public void Start()
     {
@@ -22,15 +22,15 @@ public class MineCardUI : MonoBehaviour
     {
         SetRarityText();
         SetBiomeText();
-        SetExplorationText();
-        SetProspectionText();
-        SetConstructionText();
-        SetIncomeText();
+        SetMovementSpeedText();
+        SetMiningSpeedText();
+        SetBuildingSpeedText();
+        SetBuildingCostText();
     }
 
     private void SetRarityText()
     {
-        switch (mineCard.rarity)
+        switch(minerCard.rarity)
         {
             case Rarity.COMMON:
                 rarityText.text = "Commune";
@@ -50,9 +50,9 @@ public class MineCardUI : MonoBehaviour
         }
     }
 
-    public void SetBiomeText() 
+    public void SetBiomeText()
     {
-        switch(mineCard.biome)
+        switch (minerCard.biome)
         {
             case Biome.COBBLESTONE:
                 biomeText.text = "Standard";
@@ -76,23 +76,23 @@ public class MineCardUI : MonoBehaviour
         }
     }
 
-    public void SetExplorationText()
+    public void SetMovementSpeedText()
     {
-        explorationText.text = "Strate la plus profonde\n" + mineCard.progress;
+        movementSpeedText.text = "Vitesse de déplacement\n" + minerCard.movementSpeed*100 + "%";
     }
 
-    public void SetProspectionText()
+    public void SetMiningSpeedText()
     {
-        prospectionText.text = "Prospection\n" + (int)Mathf.Round(mineCard.prospect * 100) + " %";
+        miningSpeedText.text = "Vitesse de minage\n" + minerCard.miningSpeed * 100 + "%";
     }
 
-    public void SetConstructionText()
+    public void SetBuildingSpeedText()
     {
-        constructionText.text = "Construction\n" + (int)Mathf.Round(mineCard.construct * 100) + " %";
+        buildingSpeedText.text = "Temps de construction\n" + minerCard.buildingSpeed + " sec.";
     }
 
-    public void SetIncomeText()
+    public void SetBuildingCostText()
     {
-        incomeText.text = mineCard.incomeParMinute + " $ / minute";
+        buildingCostText.text = "Cout de la foreuse\n" + minerCard.buildingCost + " $";
     }
 }

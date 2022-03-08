@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b3f8e8463d44b4aafe32a70bc72b55, type: 3}
   m_Name: test_Mine1
   m_EditorClassIdentifier: 
-  seed: 000000
+  seed: 111111
   rarity: 0
-  biome: 0
+  biome: 1
   progress: 1
   prospect: 0
   construct: 0
-  income: 0
+  incomeParMinute: 0

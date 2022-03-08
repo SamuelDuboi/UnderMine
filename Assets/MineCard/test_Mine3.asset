@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b3f8e8463d44b4aafe32a70bc72b55, type: 3}
   m_Name: test_Mine3
   m_EditorClassIdentifier: 
-  seed: 
-  rarity: 2
-  biome: 3
-  progress: 8
-  prospect: 0.263
-  construct: 0.515
-  incomeParMinute: 4
+  seed: 333333
+  rarity: 1
+  biome: 2
+  progress: 2
+  prospect: 0.05
+  construct: 0.125
+  incomeParMinute: 0.85
