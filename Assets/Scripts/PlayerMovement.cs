@@ -130,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
                     tileSelected = hit.collider.GetComponent<TileBehavior>();
                     tileSelected.Select();
                     tileSelected = tileSelected.Digg();
-
                     movingDirection -= Vector2.right;
                     break;
                 }
@@ -148,9 +147,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //Debug.DrawRay(transform.position + new Vector3(-colliderRect.xMax/2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2), Vector3.left, color);
 
-                    tileSelected = hit.collider.GetComponent<TileBehavior>();
-                    tileSelected.Select();
-                    tileSelected = tileSelected.Digg();
+                    Dig(hit);
 
                     movingDirection -= Vector2.left;
                     break;
@@ -170,9 +167,7 @@ public class PlayerMovement : MonoBehaviour
                     movingDirection -= Vector2.down;
                     if (direction.y == 0)
                         break;
-                    tileSelected = hit.collider.GetComponent<TileBehavior>();
-                    tileSelected.Select();
-                    tileSelected= tileSelected.Digg();
+                    Dig(hit);
 
                     break;
                 }
@@ -186,10 +181,8 @@ public class PlayerMovement : MonoBehaviour
                 if( Raycast(Vector2.up, transform.position - new Vector3(colliderRect.xMax - colliderRect.size.x / 2 - i * colliderRect.size.y / 2, -colliderRect.yMax / 2),out hit))
                 {
                     //Debug.DrawRay(transform.position - new Vector3(colliderRect.xMax - colliderRect.size.x / 2 - i * colliderRect.size.y / 2, -colliderRect.yMax/2 ), Vector3.up, color);
-                    tileSelected = hit.collider.GetComponent<TileBehavior>();
-                    tileSelected.Select();
-                    tileSelected= tileSelected.Digg();
-         
+
+                    Dig(hit);
                     movingDirection -= Vector2.up;
                     break;
                 }
@@ -200,8 +193,19 @@ public class PlayerMovement : MonoBehaviour
             Move(movingDirection);
         
     }
+
+    public void Dig(RaycastHit hit)
+    {
+        // ici mettre le son qui creuse
+        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
+        tileSelected = hit.collider.GetComponent<TileBehavior>();
+        tileSelected.Select();
+        tileSelected = tileSelected.Digg();
+    }
     private void Move(Vector2 direction)
     {
+        //ici mettre le son du déplacement
+        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
         TileGenerator.instance.CheckPos(transform.position);
     }

@@ -37,9 +37,12 @@ public class Minor : Character
     {
         if (tile)
         {
+            //mettre ici le son du posage de foreuse
+            //créer une condition pour que cela ne se joue qu'une fois puis cf lign 45
             float value = tile.Collect();
             if (value > 0)
             {
+                //reset ici la condition pour que le son de foreuse puisse de nouveau etre jouer
                 // coinValue[(int)tile.GetCryptoTyp()].text = currentPlayer.ChangeValue(tile.GetCryptoTyp(), 1).ToString();
                 values[(int)tile.GetCryptoTyp()]++;
                 coinValue[(int)tile.GetCryptoTyp()].text =values[(int)tile.GetCryptoTyp()].ToString();

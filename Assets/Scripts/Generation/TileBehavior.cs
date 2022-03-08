@@ -82,7 +82,7 @@ public class TileBehavior : MonoBehaviour
     public void ApplyCrypto(int cryptoIndex,List<Cryptos> crypto, bool isStone, bool _isDigged, int indexOfChunk,Vector2  pos)
     {
         var mycrypto = crypto[cryptoIndex];
-        timeToDig += indexOfChunk/3 * Minor.instance.miningSpeed; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        timeToDig += indexOfChunk/3 ; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
         if (!myTile)
         myTile = gameObject.AddComponent<Tile>();
         if (_isDigged)
@@ -103,7 +103,7 @@ public class TileBehavior : MonoBehaviour
     public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto, bool isStone, int indexOfChunk, Vector2 pos)
     {
         var mycrypto = crypto[cryptoIndex];
-        timeToDig += indexOfChunk / 3 * Minor.instance.miningSpeed; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
+        timeToDig += indexOfChunk / 3 ; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
         if (!myTile)
             myTile = gameObject.AddComponent<Tile>();
             myTile.Init(0, mycrypto, pos, indexOfChunk, isStone);
