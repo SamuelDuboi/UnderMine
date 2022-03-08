@@ -11,6 +11,7 @@ public class Minor : Character
     public List<TextMeshProUGUI>coinValue = new List<TextMeshProUGUI>();
     [HideInInspector] public List<int> values;
     public static Minor instance;
+    public float miningSpeed = 1;
     private void Awake()
     {
         if(instance == null)
