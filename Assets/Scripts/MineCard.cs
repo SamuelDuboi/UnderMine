@@ -19,6 +19,18 @@ public class MineCard : ScriptableObject
     public float incomeParMinute = 0.0f;
     public MineInventory inventory = new MineInventory();
 
+    public void RevaluateIncome()
+    {
+        List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
+        incomeParMinute = 0.0f;
+        foreach(CryptosType ct in cryptoList)
+        {
+            float count = 0.0f;
+            inventory.inventory.TryGetValue(ct, out count);
+            incomeParMinute += count * FakeStockMarket.instance.tradeValues[ct];
+        }
+    }
+
 }
 
 public class MineInventory

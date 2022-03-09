@@ -6,33 +6,44 @@ using UnityEngine;
 
 public class FakeStockMarket : MonoBehaviour
 {
+    public static FakeStockMarket instance;
+
     public Dictionary<CryptosType, float> tradeValues;
-    public Dictionary<CryptosType, StockState> tradeStates;
-    public Dictionary<CryptosType, float> tradeDeltas;
 
     private List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
 
-    public FakeStockMarket() 
+    public void Start() 
     {
-        tradeValues = new Dictionary<CryptosType, float>();
-        tradeStates = new Dictionary<CryptosType, StockState>();
-        tradeDeltas = new Dictionary<CryptosType, float>();
-
-        foreach(CryptosType ct in cryptoList)
+        if(instance == null)
         {
-           //TODO
+            instance = this;
+
+
+            tradeValues = new Dictionary<CryptosType, float>()
+            {
+                {CryptosType.bitcoin, 1500.0f},
+                {CryptosType.dogeCoins, 50.0f},
+                {CryptosType.Eterum, 800.0f}
+            };
+
+            foreach(CryptosType ct in cryptoList)
+            {
+                tradeValues[ct] = tradeValues[ct] + UnityEngine.Random.Range(-tradeValues[ct]*0.35f, tradeValues[ct]*0.35f);
+            }
+        }
+        else
+        {
+            Destroy(this);
         }
     }
 
     public void UpdateValues()
     {
-        foreach (CryptosType ct in cryptoList)
-        {
-            //TODO
-        }
+        // J'ai jamais le time
     }
 }
 
+// Unused
 public enum StockState
 {
     STABLE,

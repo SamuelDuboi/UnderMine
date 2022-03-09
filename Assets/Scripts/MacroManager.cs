@@ -31,6 +31,7 @@ public class MacroManager : MonoBehaviour
 
     private void Start()
     {
+        RevaluateAllMineIncome();
         StartCoroutine(GenerateIncome());
 
         for (int i = 0; i < listMine.Count; i++)
@@ -50,6 +51,14 @@ public class MacroManager : MonoBehaviour
     private void Update()
     {
         moneyText.text = (Mathf.Round(money*100) / 100) + " $";
+    }
+
+    public void RevaluateAllMineIncome()
+    {
+        foreach(MineCard mc in listMine)
+        {
+            mc.RevaluateIncome();
+        }
     }
 
     private IEnumerator GenerateIncome()
