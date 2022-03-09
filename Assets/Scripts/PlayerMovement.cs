@@ -207,7 +207,19 @@ public class PlayerMovement : MonoBehaviour
     public void Dig(RaycastHit hit)
     {
         //audioSourceDig.PlayOneShot(digSfx, 1F);
-        audioSourceDig.Play(0);
+
+        if (!audioSourceDig.isPlaying)
+        {
+            playDigSound = false;
+        }
+        else
+            playDigSound = true;
+
+        if (playDigSound == false)
+        {
+            audioSourceDig.Play(0);
+            playDigSound = true;
+        }
 
         // ici mettre le son qui creuse
         //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
@@ -217,7 +229,20 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Move(Vector2 direction)
     {
-        audioSourceWalk.Play(0);
+
+        if (!audioSourceWalk.isPlaying)
+        {
+            playWalkSound = false;
+        }
+        else
+            playWalkSound = true;
+
+        if (playWalkSound == false)
+        {
+            audioSourceWalk.Play(0);
+            playWalkSound = true;
+        }
+
         //audioSourceWalk.PlayOneShot(walkSfx, 1F);
 
         //ici mettre le son du déplacement
