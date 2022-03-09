@@ -39,10 +39,11 @@ public class FakeStockMarket : MonoBehaviour
 
     public void UpdateValues()
     {
-        // J'aurais jamais le time
+        // J'ai jamais le time
     }
 }
 
+// Unused
 public enum StockState
 {
     STABLE,

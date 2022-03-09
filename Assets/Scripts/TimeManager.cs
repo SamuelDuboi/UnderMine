@@ -2,12 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
 
     public float maxTime = 300.0f;
     public float timeLeft;
+
+    public GameObject ingameCanvas;
+    public GameObject pauseCanvas;
+
+    public TimeManager instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     void Start()
     {
@@ -16,11 +34,42 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        maxTime -= Time.deltaTime;
+        timeLeft -= Time.deltaTime;
+
+        if(timeLeft <= 0)
+        {
+            StopMine();
+        }
     }
 
     public void ResetTime()
     {
         timeLeft = maxTime;
+    }
+
+    public void StopMine()
+    {
+        // TODO : Save
+        SceneManager.LoadScene("HubScene");
+    }
+
+    public void PauseMineAction()
+    {
+        ingameCanvas.SetActive(false);
+        pauseCanvas.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void ResumeMineAction()
+    {
+        pauseCanvas.SetActive(false);
+        ingameCanvas.SetActive(true);
+        Time.timeScale = 1;
+    }
+
+    public void QuitMineAction()
+    {
+        StopMine();
+        Time.timeScale = 1;
     }
 }
