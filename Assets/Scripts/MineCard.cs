@@ -25,7 +25,7 @@ public class MineCard : ScriptableObject
         incomeParMinute = 0.0f;
         foreach(CryptosType ct in cryptoList)
         {
-            int count = 0;
+            float count = 0.0f;
             inventory.inventory.TryGetValue(ct, out count);
             incomeParMinute += count * FakeStockMarket.instance.tradeValues[ct];
         }
