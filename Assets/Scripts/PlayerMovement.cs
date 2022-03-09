@@ -25,12 +25,10 @@ public class PlayerMovement : MonoBehaviour
     public bool playWalkSound;
     public bool playDigSound;
 
+    private bool Isdigging;
+
     public AudioSource audioSourceWalk;
     public AudioSource audioSourceDig;
-
-    public AudioClip walkSfx;
-    public AudioClip digSfx;
-
 
     public Animator Animator { get => animator; set => animator = value; }
 
@@ -105,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
             movement = (tileTargeted[0].transform.position - transform.position);
             if (movement.magnitude < 0.05f)
             {
+                //do falls anim here
+                if(Isdigging)
+                {
+                    Isdigging = false;
+                }
                 movement = Vector2.zero;
                 transform.position = tileTargeted[0].transform.position;
                 tileTargeted[0].UnSelect();
@@ -212,7 +215,10 @@ public class PlayerMovement : MonoBehaviour
     public void Dig(RaycastHit hit)
     {
         //audioSourceDig.PlayOneShot(digSfx, 1F);
-
+        if (!Isdigging)
+        {
+            Isdigging = true;
+        }
         if (!audioSourceDig.isPlaying)
         {
             playDigSound = false;
