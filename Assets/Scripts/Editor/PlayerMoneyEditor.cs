@@ -18,7 +18,7 @@ public class PlayerMoneyEditor : Editor
         {
             myCryptos.Add(item.myCrypto);
 
-            value.Add(item.ChangeValue(0));
+            value.Add(item.AddRevenu(0));
         }
     }
 

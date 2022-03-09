@@ -239,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
         tileSelected = tileSelected.Digg();
         animator.SetTrigger("actionc");
     }
+
     private void Move(Vector2 direction)
     {
 

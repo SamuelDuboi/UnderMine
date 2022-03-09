@@ -113,3 +113,6 @@ MonoBehaviour:
   myTile: {fileID: 0}
   meshRenderer: {fileID: 5801054678666886746}
   collider: {fileID: 6191654558436174033}
+  drillMask:
+    serializedVersion: 2
+    m_Bits: 512

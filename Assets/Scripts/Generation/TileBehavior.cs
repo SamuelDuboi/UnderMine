@@ -9,6 +9,8 @@ public class TileBehavior : MonoBehaviour
     public MeshRenderer meshRenderer;
     public BoxCollider collider;
     private Color InitColor;
+    public LayerMask drillMask;
+
     void Start()
     {
         InitColor = new Color(137f/255f, 83f/255f, 58f/255f, 50f/255f);
@@ -25,6 +27,7 @@ public class TileBehavior : MonoBehaviour
             Selection(0);
             Digg(1);
             gameObject.layer = 8;
+            TryDestroyDrill();
             //need to be changed to the actual index of the mine
             SaveSystem.Instance.Saving(0,Minor.instance.values,myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
             return null;
@@ -130,7 +133,19 @@ public class TileBehavior : MonoBehaviour
         else
             meshRenderer.material = mycrypto.cryptoMatStone;
     }
-
+    public void TryDestroyDrill()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector2.up, out hit, 1.5f, drillMask))
+            hit.collider.GetComponent<DrillBehavior>().TryDestroy(direction.south);
+        Debug.DrawRay(transform.position, Vector2.up, Color.green, 10f);
+        if (Physics.Raycast(transform.position, Vector2.right, out hit, 1, drillMask))
+            hit.collider.GetComponent<DrillBehavior>().TryDestroy(direction.west);
+        if (Physics.Raycast(transform.position, Vector2.down, out hit, 1, drillMask))
+            hit.collider.GetComponent<DrillBehavior>().TryDestroy(direction.north);
+        if (Physics.Raycast(transform.position, Vector2.left, out hit, 1, drillMask))
+            hit.collider.GetComponent<DrillBehavior>().TryDestroy(direction.east);
+    }
     public Tile GetTile()
     {
         return myTile;

@@ -8,7 +8,6 @@ public class Minor : Character
 {
     private Vector2 movement;
     private TileBehavior tile;
-    public List<TextMeshProUGUI>coinValue = new List<TextMeshProUGUI>();
     [HideInInspector] public List<float> values;
     public static Minor instance;
     public float miningSpeed = 1;
@@ -29,10 +28,7 @@ public class Minor : Character
     {
         base.Start();
         values = MoneyManager.instance.MoneyValues();
-        for (int i = 0; i < 3; i++)
-        {
-            coinValue[i].text = values[i].ToString();
-        }
+       
         colliderRect = new Rect(playerMovement.boxCollider.center, playerMovement.boxCollider.size);
     }
     internal override  void Update()
@@ -84,7 +80,7 @@ public class Minor : Character
 
     public void BuyDrill(TileBehavior targetTile,direction direction)
     {
-        if (MoneyManager.instance.TryBuyDrill(targetTile.GetSratNumber()))
+        if (MoneyManager.instance.TryBuyDrill(targetTile.GetCryptoTyp()))
         {
             Vector2 posToSpawn = targetTile.transform.position;
             switch (direction)
@@ -105,7 +101,7 @@ public class Minor : Character
                     break;
             }
             var drill = Instantiate(DrillPrefab, posToSpawn, Quaternion.identity);
-            drill.GetComponent<DrillBehavior>().CreatDrill(MoneyManager.instance.drillNumber, targetTile.GetSratNumber(), posToSpawn, direction, targetTile.GetCryptoTyp());
+            drill.GetComponent<DrillBehavior>().CreatDrill(MoneyManager.instance.drillNumber[(int)targetTile.GetCryptoTyp()], targetTile.GetSratNumber(), posToSpawn, direction, targetTile.GetCryptoTyp());
         }
     }
 

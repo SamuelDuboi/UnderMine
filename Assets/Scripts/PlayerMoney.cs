@@ -29,22 +29,21 @@ public class PlayerMoney : ScriptableObject
         for (int i = 0; i < myCryptos.Count; i++)
         {
             if (myCryptos[i].myCrypto.myCurrency == cryptos)
-                return myCryptos[i].ChangeValue(0);
+                return myCryptos[i].AddRevenu(0);
         }
         return 0;
     }
     public float GetNumberOwned(int index)
     {
-        return myCryptos[index].ChangeValue(0);
+        return myCryptos[index].AddRevenu(0);
     }
-    public float ChangeValue(CryptosType cryptos, float value)
+    public void ChangeValue(CryptosType cryptos, float value)
     {
         for (int i = 0; i < myCryptos.Count; i++)
         {
             if (myCryptos[i].myCrypto.myCurrency == cryptos)
-                return myCryptos[i].ChangeValue(value);
+                 myCryptos[i].ChangeValue(value);
         }
-        return 0;
     }
 }
 [System.Serializable]
@@ -52,16 +51,57 @@ public class CryptosInInventory
 {
      public Cryptos myCrypto { get; private set; }
      float numberOwned;
-    public float ChangeValue(float value)
+     float revenuPerSec;
+    /// <summary>
+    /// add numberOwned with revenuPerSec
+    /// </summary>
+    public void AddValue()
+    {
+        numberOwned += revenuPerSec;
+    }
+    /// <summary>
+    /// add number owned with Value
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddValue(float value)
     {
         numberOwned += value;
-
-        return numberOwned;
     }
+    /// <summary>
+    /// add revenu per sec with value and return revenuPer sec
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public float AddRevenu(float value)
+    {
+        revenuPerSec += value;
+        return revenuPerSec;
+    }
+    /// <summary>
+    /// set number Owned = to value and return it
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
     public float SetValue(float value)
     {
         numberOwned = value;
         return numberOwned;
+    }
+    /// <summary>
+    /// change revenu per sec = value, add number owned by value and return revenu per sec
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public float ChangeValue(float value)
+    {
+        revenuPerSec = value;
+        numberOwned += revenuPerSec;
+        return revenuPerSec;
+    }
+
+    public float GetRealValuePerSec()
+    {
+        return revenuPerSec * myCrypto.currentValue;
     }
     public CryptosInInventory(Cryptos _mycrypto)
     {

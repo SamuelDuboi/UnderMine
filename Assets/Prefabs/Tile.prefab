@@ -110,5 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToDig: 0.5
+  myTile: {fileID: 0}
   meshRenderer: {fileID: 5801054678666886746}
   collider: {fileID: 6191654558436174033}
+  drillMask:
+    serializedVersion: 2
+    m_Bits: 512
