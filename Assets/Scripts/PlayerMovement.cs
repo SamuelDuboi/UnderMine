@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float raycastRange;
     public float speed;
+    private Animator animator;
     private Vector2 movement;
     public LayerMask layerMask;
     public BoxCollider boxCollider;
@@ -20,16 +21,20 @@ public class PlayerMovement : MonoBehaviour
     public System.Action doubleClik;
     private Vector2 positionToReach;
     public LayerMask mouseLayer;
+
+    public Animator Animator { get => animator; set => animator = value; }
+
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
         //transform.position = ;
         colliderRect = new Rect(boxCollider.center, boxCollider.size);
         tileTargeted = new List<TileBehavior>();
+        animator = GetComponentInChildren<Animator>();
     }
     public void Movement(InputAction.CallbackContext context)
     {
-        //movement = context.ReadValue<Vector2>();
+        //movement = context.ReadValue<Vector2>(); 
     }
     public void MousMovement(InputAction.CallbackContext context)
     {
@@ -201,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         tileSelected = hit.collider.GetComponent<TileBehavior>();
         tileSelected.Select();
         tileSelected = tileSelected.Digg();
+        animator.SetTrigger("actionc");
     }
     private void Move(Vector2 direction)
     {
@@ -208,6 +214,8 @@ public class PlayerMovement : MonoBehaviour
         //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
         TileGenerator.instance.CheckPos(transform.position);
+        animator.SetFloat("Forward", direction.y);
+        animator.SetFloat("Strafe", direction.x);
     }
     private bool Raycast(Vector2 direction, Vector2 position, out RaycastHit hit)
     {
