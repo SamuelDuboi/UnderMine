@@ -23,6 +23,7 @@ public class MineCard : ScriptableObject
     {
         List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
         incomeParMinute = 0.0f;
+        cryptoList.Remove(CryptosType.none);
         foreach(CryptosType ct in cryptoList)
         {
             float count = 0.0f;
@@ -41,6 +42,7 @@ public class MineInventory
     {
         inventory = new Dictionary<CryptosType, float>();
         List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
+        cryptoList.Remove(CryptosType.none);
         foreach(CryptosType ct in cryptoList)
         {
             inventory.Add(ct, 0);

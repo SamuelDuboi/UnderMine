@@ -31,8 +31,6 @@ public class MacroManager : MonoBehaviour
 
     private void Start()
     {
-        RevaluateAllMineIncome();
-        StartCoroutine(GenerateIncome());
 
         for (int i = 0; i < listMine.Count; i++)
         {
@@ -44,6 +42,8 @@ public class MacroManager : MonoBehaviour
             }
            
         }
+        RevaluateAllMineIncome();
+        StartCoroutine(GenerateIncome());
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
     }

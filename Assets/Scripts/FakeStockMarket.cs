@@ -12,7 +12,7 @@ public class FakeStockMarket : MonoBehaviour
 
     private List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
 
-    public void Start() 
+    public void Awake() 
     {
         if(instance == null)
         {
@@ -23,9 +23,10 @@ public class FakeStockMarket : MonoBehaviour
             {
                 {CryptosType.bitcoin, 1500.0f},
                 {CryptosType.dogeCoins, 50.0f},
-                {CryptosType.Eterum, 800.0f}
+                {CryptosType.Eterum, 800.0f},
+                {CryptosType.Tether, 100.0f}
             };
-
+            cryptoList.Remove(CryptosType.none);
             foreach(CryptosType ct in cryptoList)
             {
                 tradeValues[ct] = tradeValues[ct] + UnityEngine.Random.Range(-tradeValues[ct]*0.35f, tradeValues[ct]*0.35f);
