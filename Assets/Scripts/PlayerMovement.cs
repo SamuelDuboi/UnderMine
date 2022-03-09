@@ -22,6 +22,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 positionToReach;
     public LayerMask mouseLayer;
 
+    public bool playWalkSound;
+    public bool playDigSound;
+
+    public AudioSource audioSourceWalk;
+    public AudioSource audioSourceDig;
+
+    public AudioClip walkSfx;
+    public AudioClip digSfx;
+
+
     public Animator Animator { get => animator; set => animator = value; }
 
     private IEnumerator Start()
@@ -201,8 +211,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dig(RaycastHit hit)
     {
+        //audioSourceDig.PlayOneShot(digSfx, 1F);
+
+        if (!audioSourceDig.isPlaying)
+        {
+            playDigSound = false;
+        }
+        else
+            playDigSound = true;
+
+        if (playDigSound == false)
+        {
+            audioSourceDig.Play(0);
+            playDigSound = true;
+        }
+
         // ici mettre le son qui creuse
-        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
+        //Attention cette mï¿½thode est appelï¿½ Update donc il faut crï¿½er un condition qui attend que le son soit fini avant de le rejouer
         tileSelected = hit.collider.GetComponent<TileBehavior>();
         tileSelected.Select();
         tileSelected = tileSelected.Digg();
@@ -210,8 +235,24 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Move(Vector2 direction)
     {
-        //ici mettre le son du déplacement
-        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
+
+        if (!audioSourceWalk.isPlaying)
+        {
+            playWalkSound = false;
+        }
+        else
+            playWalkSound = true;
+
+        if (playWalkSound == false)
+        {
+            audioSourceWalk.Play(0);
+            playWalkSound = true;
+        }
+
+        //audioSourceWalk.PlayOneShot(walkSfx, 1F);
+
+        //ici mettre le son du dï¿½placement
+        //Attention cette mï¿½thode est appelï¿½ Update donc il faut crï¿½er un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
         TileGenerator.instance.CheckPos(transform.position);
         animator.SetFloat("Forward", direction.y);
