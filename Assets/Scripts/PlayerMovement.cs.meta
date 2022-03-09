@@ -3,7 +3,14 @@ guid: c5e2087c6f5891f499fa2701aa278901
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - boxCollider: {instanceID: 0}
+  - tileSelected: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - minor: {instanceID: 0}
+  - sfxWalk: {fileID: 8300000, guid: 8fbd4885f09f0bc4f8c402dbc79f0c8e, type: 3}
+  - sfxDig: {fileID: 8300000, guid: 3fe0ac25c0c187c4e92a8921abdd2165, type: 3}
+  - audioSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

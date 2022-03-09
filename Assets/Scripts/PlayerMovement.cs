@@ -20,6 +20,16 @@ public class PlayerMovement : MonoBehaviour
     public System.Action doubleClik;
     private Vector2 positionToReach;
     public LayerMask mouseLayer;
+
+    public bool playWalkSound;
+    public bool playDigSound;
+
+    public AudioSource audioSourceWalk;
+    public AudioSource audioSourceDig;
+
+    public AudioClip walkSfx;
+    public AudioClip digSfx;
+
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
@@ -196,6 +206,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dig(RaycastHit hit)
     {
+        //audioSourceDig.PlayOneShot(digSfx, 1F);
+        audioSourceDig.Play(0);
+
         // ici mettre le son qui creuse
         //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
         tileSelected = hit.collider.GetComponent<TileBehavior>();
@@ -204,6 +217,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Move(Vector2 direction)
     {
+        audioSourceWalk.Play(0);
+        //audioSourceWalk.PlayOneShot(walkSfx, 1F);
+
         //ici mettre le son du déplacement
         //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
