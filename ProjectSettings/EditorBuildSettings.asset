@@ -9,6 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/HubScene.unity
     guid: bc2db2b0d8d4434428f6add963b5b900
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Mines/DefaultMine.unity
     guid: 622479f5547e8cb49b88c90d9931a8c2
   - enabled: 1
@@ -20,4 +21,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mines/Mine3.unity
     guid: b4e606a827f3b974e947d6a000b8110e
+=======
+    path: Assets/Scenes/Mine1.unity
+    guid: 63daac6f9caa1364f87dcb774c840a38
+  - enabled: 1
+    path: Assets/Scenes/Mine2.unity
+    guid: ac6921cbad4220740a7dcd589e044fa9
+  - enabled: 1
+    path: Assets/Scenes/Mine3.unity
+    guid: b4e606a827f3b974e947d6a000b8110e
+  - enabled: 1
+    path: Assets/Scenes/DefaultMine.unity
+    guid: 622479f5547e8cb49b88c90d9931a8c2
+>>>>>>> Sam
   m_configObjects: {}

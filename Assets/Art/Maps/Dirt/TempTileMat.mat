@@ -58,10 +58,10 @@ Material:
     m_Ints: []
     m_Floats:
     - Alpha: 1
-    - Empty: 1
+    - Empty: 0
     - Selected: 0
     m_Colors:
-    - ColorSelection: {r: 0.2264151, g: 0.17563362, b: 0.15485938, a: 0.1960784}
+    - ColorSelection: {r: 0.5372549, g: 0.3254902, b: 0.22745098, a: 0.1960784}
     - Selected: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0, g: 0, b: 0, a: 0.19607843}
   m_BuildTextureStacks: []
