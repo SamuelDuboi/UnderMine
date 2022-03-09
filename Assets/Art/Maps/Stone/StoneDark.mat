@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: StoneDark
+  m_Shader: {fileID: -6465566751694194690, guid: dc627c01bbcb2c04180dbd7bc04b6ed1, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - AO:
+        m_Texture: {fileID: 2800000, guid: 85a97dca295c69f4e9f175e217eb8825, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - D:
+        m_Texture: {fileID: 2800000, guid: 8c652fe1e9930db4689866e7c05fa342, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - MT:
+        m_Texture: {fileID: 2800000, guid: fcc30d1c58cef0d469e88376daac9575, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - N:
+        m_Texture: {fileID: 2800000, guid: e8c9623e7ac62bd4aa319ba5d173a48e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - R:
+        m_Texture: {fileID: 2800000, guid: ecf0040cd4b3612429f771dec6b608c4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Empty: 0
+    - Selected: 0
+    m_Colors:
+    - ColorSelection: {r: 0.6037736, g: 0.3637002, b: 0.2249911, a: 1}
+  m_BuildTextureStacks: []
