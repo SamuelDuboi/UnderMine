@@ -23,11 +23,11 @@ public class MineCard : ScriptableObject
 
 public class MineInventory
 {
-    public Dictionary<CryptosType, int> inventory;
+    public Dictionary<CryptosType, float> inventory;
 
     public MineInventory()
     {
-        inventory = new Dictionary<CryptosType, int>();
+        inventory = new Dictionary<CryptosType, float>();
         List<CryptosType> cryptoList = Enum.GetValues(typeof(CryptosType)).Cast<CryptosType>().ToList();
         foreach(CryptosType ct in cryptoList)
         {

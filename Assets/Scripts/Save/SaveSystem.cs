@@ -28,7 +28,8 @@ public class SaveSystem
         mines.Insert(index, new MineData());
         mines[index].tile = new List<TileForSave>();
         mines[index].cryptos = new List<CryptosType>();
-        mines[index].cryptosValue = new List<int>();
+        mines[index].cryptosValue = new List<float>();
+        mines[index].drills = new List<Drill>();
         for (int i = 0; i < 4; i++)
         {
             mines[index].cryptos.Add( (CryptosType)i);
@@ -54,11 +55,21 @@ public class SaveSystem
             Debug.Log(mines[i]);
         }
     }
-    public void Saving(int mineIndex, List<int>cryptosValue, int strat, TileForSave _tile)
+    public void Saving(int mineIndex, List<float>cryptosValue, int strat, TileForSave _tile)
     {
         mines[mineIndex].tile.Add(_tile);
         mines[mineIndex].cryptosValue = cryptosValue;
-        mines[mineIndex].strat = strat;
+        if(strat> mines[mineIndex].strat)
+            mines[mineIndex].strat = strat;
+        var dataPath = Path.Combine(Application.persistentDataPath, "mine" + mineIndex.ToString() + ".json");
+        string json = JsonUtility.ToJson(mines[mineIndex]);
+        StreamWriter sw = File.CreateText(dataPath);
+        sw.Close();
+        File.WriteAllText(dataPath, json);
+    }
+    public void Saving(int mineIndex, Drill myDrill)
+    {
+        mines[mineIndex].drills.Add(myDrill);
         var dataPath = Path.Combine(Application.persistentDataPath, "mine" + mineIndex.ToString() + ".json");
         string json = JsonUtility.ToJson(mines[mineIndex]);
         StreamWriter sw = File.CreateText(dataPath);
@@ -72,6 +83,7 @@ public class MineData
 {
     public int strat;
     public List<CryptosType> cryptos;
-    public List<int> cryptosValue;
+    public List<float> cryptosValue;
     public List<TileForSave> tile;
+    public List<Drill> drills;
 }
