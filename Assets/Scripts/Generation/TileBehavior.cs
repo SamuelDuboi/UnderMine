@@ -14,6 +14,10 @@ public class TileBehavior : MonoBehaviour
         InitColor = new Color(137f/255f, 83f/255f, 58f/255f, 50f/255f);
     }
 
+    public int GetSratNumber()
+    {
+        return myTile.indexParentChunk / 3;
+    }
     public TileBehavior Digg()
     {
         if (myTile.isDigged)

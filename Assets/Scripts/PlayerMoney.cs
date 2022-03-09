@@ -9,6 +9,11 @@ public class PlayerMoney : ScriptableObject
     public List<CryptosInInventory> myCryptos =new List<CryptosInInventory>();
     public void AddCrypto(Cryptos _crypto)
     {
+        for (int i = 0; i < myCryptos.Count; i++)
+        {
+            if (myCryptos[i].myCrypto == _crypto)
+                return ;
+        }
         myCryptos.Add( new CryptosInInventory(_crypto));
     }
     public void RemoveCrypto(int index)

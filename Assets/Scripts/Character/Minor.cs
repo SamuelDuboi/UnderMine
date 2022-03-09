@@ -9,9 +9,12 @@ public class Minor : Character
     private Vector2 movement;
     private TileBehavior tile;
     public List<TextMeshProUGUI>coinValue = new List<TextMeshProUGUI>();
-    [HideInInspector] public List<int> values;
+    [HideInInspector] public List<float> values;
     public static Minor instance;
     public float miningSpeed = 1;
+    public float GlobalMoney =10000;
+    private Rect colliderRect;
+    public GameObject DrillPrefab;
     private void Awake()
     {
         if(instance == null)
@@ -25,17 +28,16 @@ public class Minor : Character
     internal override void Start()
     {
         base.Start();
-       
-        //change to the actual index of the Mine
-        values = SaveSystem.Instance.mines[0].cryptosValue;
+        values = MoneyManager.instance.MoneyValues();
         for (int i = 0; i < 3; i++)
         {
             coinValue[i].text = values[i].ToString();
         }
+        colliderRect = new Rect(playerMovement.boxCollider.center, playerMovement.boxCollider.size);
     }
     internal override  void Update()
     {
-        if (tile)
+        /*if (tile)
         {
             //mettre ici le son du posage de foreuse
             //créer une condition pour que cela ne se joue qu'une fois puis cf lign 45
@@ -48,7 +50,7 @@ public class Minor : Character
                 coinValue[(int)tile.GetCryptoTyp()].text =values[(int)tile.GetCryptoTyp()].ToString();
                 tile = null;
             }
-        }
+        }*/
     }
     internal override void DoubleClick()
     {
@@ -61,9 +63,50 @@ public class Minor : Character
         {
             movement = hit.collider.transform.position - transform.position;
         }
-        if (movement.magnitude < 1.7f)
+        if (movement.magnitude <= 1f)
         {
             tile = hit.collider.GetComponent<TileBehavior>();
+            if (tile.GetCryptoTyp() == CryptosType.none)
+                return;
+            direction mydirection;
+            if (movement.x > 0.1)
+                mydirection = direction.east;
+            else if (movement.x < -0.1)
+                mydirection = direction.west;
+            else if (movement.y > 0.1)
+                mydirection = direction.north;
+            else
+                mydirection = direction.south;
+            if (tile)
+                BuyDrill(tile, mydirection);
         }
     }
+
+    public void BuyDrill(TileBehavior targetTile,direction direction)
+    {
+        if (MoneyManager.instance.TryBuyDrill(targetTile.GetSratNumber()))
+        {
+            Vector2 posToSpawn = targetTile.transform.position;
+            switch (direction)
+            {
+                case direction.north:
+                    posToSpawn -= Vector2.up;
+                    break;
+                case direction.east:
+                    posToSpawn -= Vector2.right;
+                    break;
+                case direction.south:
+                    posToSpawn -= Vector2.down;
+                    break;
+                case direction.west:
+                    posToSpawn -= Vector2.left;
+                    break;
+                default:
+                    break;
+            }
+            var drill = Instantiate(DrillPrefab, posToSpawn, Quaternion.identity);
+            drill.GetComponent<DrillBehavior>().CreatDrill(MoneyManager.instance.drillNumber, targetTile.GetSratNumber(), posToSpawn, direction, targetTile.GetCryptoTyp());
+        }
+    }
+
 }

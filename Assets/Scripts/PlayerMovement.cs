@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float raycastRange;
     public float speed;
+    private Animator animator;
     private Vector2 movement;
     public LayerMask layerMask;
     public BoxCollider boxCollider;
@@ -20,16 +21,28 @@ public class PlayerMovement : MonoBehaviour
     public System.Action doubleClik;
     private Vector2 positionToReach;
     public LayerMask mouseLayer;
+
+    public bool playWalkSound;
+    public bool playDigSound;
+
+    private bool Isdigging;
+
+    public AudioSource audioSourceWalk;
+    public AudioSource audioSourceDig;
+
+    public Animator Animator { get => animator; set => animator = value; }
+
     private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
         //transform.position = ;
         colliderRect = new Rect(boxCollider.center, boxCollider.size);
         tileTargeted = new List<TileBehavior>();
+        animator = GetComponentInChildren<Animator>();
     }
     public void Movement(InputAction.CallbackContext context)
     {
-        //movement = context.ReadValue<Vector2>();
+        //movement = context.ReadValue<Vector2>(); 
     }
     public void MousMovement(InputAction.CallbackContext context)
     {
@@ -90,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
             movement = (tileTargeted[0].transform.position - transform.position);
             if (movement.magnitude < 0.05f)
             {
+                //do falls anim here
+                if(Isdigging)
+                {
+                    Isdigging = false;
+                }
                 movement = Vector2.zero;
                 transform.position = tileTargeted[0].transform.position;
                 tileTargeted[0].UnSelect();
@@ -196,18 +214,55 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dig(RaycastHit hit)
     {
+        //audioSourceDig.PlayOneShot(digSfx, 1F);
+        if (!Isdigging)
+        {
+            Isdigging = true;
+        }
+        if (!audioSourceDig.isPlaying)
+        {
+            playDigSound = false;
+        }
+        else
+            playDigSound = true;
+
+        if (playDigSound == false)
+        {
+            audioSourceDig.Play(0);
+            playDigSound = true;
+        }
+
         // ici mettre le son qui creuse
-        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
+        //Attention cette mï¿½thode est appelï¿½ Update donc il faut crï¿½er un condition qui attend que le son soit fini avant de le rejouer
         tileSelected = hit.collider.GetComponent<TileBehavior>();
         tileSelected.Select();
         tileSelected = tileSelected.Digg();
+        animator.SetTrigger("actionc");
     }
     private void Move(Vector2 direction)
     {
-        //ici mettre le son du déplacement
-        //Attention cette méthode est appelé Update donc il faut créer un condition qui attend que le son soit fini avant de le rejouer
+
+        if (!audioSourceWalk.isPlaying)
+        {
+            playWalkSound = false;
+        }
+        else
+            playWalkSound = true;
+
+        if (playWalkSound == false)
+        {
+            audioSourceWalk.Play(0);
+            playWalkSound = true;
+        }
+
+        //audioSourceWalk.PlayOneShot(walkSfx, 1F);
+
+        //ici mettre le son du dï¿½placement
+        //Attention cette mï¿½thode est appelï¿½ Update donc il faut crï¿½er un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
         TileGenerator.instance.CheckPos(transform.position);
+        animator.SetFloat("Forward", direction.y);
+        animator.SetFloat("Strafe", direction.x);
     }
     private bool Raycast(Vector2 direction, Vector2 position, out RaycastHit hit)
     {
