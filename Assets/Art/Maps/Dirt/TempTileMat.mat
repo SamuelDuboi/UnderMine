@@ -19,6 +19,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Cracks_D:
+        m_Texture: {fileID: 2800000, guid: a4c4ff9943306584bb83c5a0967e8f08, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Cracks_Opacity:
+        m_Texture: {fileID: 2800000, guid: f689972aaed13514f821d00cae330557, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_0581c1c3a68748e1802462174473212f_Texture_1:
         m_Texture: {fileID: 2800000, guid: 7c6b5cfe80d800246aed9b8664d5e598, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -31,12 +39,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: b8deb457d328edf489bfe0bd5f2f3332, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_67c541b3720446ae9a276842a1c6bcd2_Texture_1:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_6e69d54e094348ecabcb2688f0e81631_Texture_1:
         m_Texture: {fileID: 2800000, guid: 86d40e0dc81c8ff47a205f9ec8d7b7ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_a1b1e534d1fd4bfaa6d4a5f369b44bf7_Texture_1:
         m_Texture: {fileID: 2800000, guid: ecaeb2d402e90a548909851432757c3c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_df86ef170cb0483887438cacb0b70ff6_Texture_1:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_eace9b14e79547e69757b4d364f55722_Texture_1:
@@ -58,6 +74,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Alpha: 1
+    - CracksSpreading: 0
     - Empty: 0
     - Selected: 0
     m_Colors:
