@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class MacroManager : MonoBehaviour
     [Space(15)]
 
     public Text moneyText;
+    public Text ethText;
 
     [Space(15)]
 
@@ -43,6 +45,8 @@ public class MacroManager : MonoBehaviour
     public Button previousMinerTradeButton;
     public Button sellMineButton;
     public Button sellMinerButton;
+    public Button buyMineButton;
+    public Button buyMinerButton;
 
     [Space(15)]
 
@@ -78,6 +82,7 @@ public class MacroManager : MonoBehaviour
     private void Update()
     {
         moneyText.text = (Mathf.Round(ValueManager.instance.globalMoney*100) / 100) + " $";
+        ethText.text =  ValueManager.instance.CurrentEtherum + " ETH";
     }
 
     public void RevaluateAllMineIncome()
@@ -171,6 +176,15 @@ public class MacroManager : MonoBehaviour
             nextMineButton.interactable = true;
             nextMineTradeButton.interactable = true;
         }
+
+        if(ValueManager.instance.CurrentEtherum < 0.01f)
+        {
+            buyMineButton.interactable = false;
+        }
+        else
+        {
+            buyMineButton.interactable = true;
+        }
     }
 
     private void UpdateMineCardView()
@@ -237,6 +251,15 @@ public class MacroManager : MonoBehaviour
             nextMinerButton.interactable = true; 
             nextMinerTradeButton.interactable = true;
         }
+
+        if (ValueManager.instance.CurrentEtherum < 0.01f)
+        {
+            buyMinerButton.interactable = false;
+        }
+        else
+        {
+            buyMinerButton.interactable = true;
+        }
     }
 
     private void UpdateMinerCardView()
@@ -271,6 +294,73 @@ public class MacroManager : MonoBehaviour
     {
         tradeMenuCanvas.SetActive(false);
         mineSelectionCanvas.SetActive(true);
+    }
+
+    public void SellMineAction()
+    {
+        ValueManager.instance.AddCurrentEtherum(listMine[indexMineSelection].ethPrice);
+        listMine.RemoveAt(indexMineSelection);
+        
+        if(indexMineSelection >= listMine.Count)
+        {
+            indexMineSelection = listMine.Count - 1;
+        }
+
+        UpdateMineButtonsInteractivity();
+        UpdateMinerButtonsInteractivity();
+        UpdateMineCardView();
+        UpdateSellButton();
+    }
+
+    public void SellMinerAction()
+    {
+        ValueManager.instance.AddCurrentEtherum(listMiner[indexMinerSelection].ethPrice);
+        listMiner.RemoveAt(indexMinerSelection);
+
+        if (indexMinerSelection >= listMiner.Count)
+        {
+            indexMinerSelection = listMiner.Count - 1;
+        }
+
+        UpdateMineButtonsInteractivity();
+        UpdateMinerButtonsInteractivity();
+        UpdateMinerCardView();
+        UpdateSellButton();
+    }
+
+    public void BuyMineAction()
+    {
+        ValueManager.instance.AddCurrentEtherum(-0.01f);
+        MineCard newMineCard = ScriptableObject.CreateInstance<MineCard>();
+        newMineCard.sceneName = "Mine" + Random.Range(1, 4);
+        newMineCard.rarity = (Rarity)Random.Range(0, 4);
+        newMineCard.biome = (Biome)Random.Range(0, 5);
+        AssetDatabase.CreateAsset(newMineCard, "Assets/MineCard/Mine" + Random.Range(5, 999999999) + ".asset"); // Inshallah
+        listMine.Add(newMineCard);
+
+        UpdateMineButtonsInteractivity();
+        UpdateMinerButtonsInteractivity();
+        UpdateMinerCardView();
+        UpdateSellButton();
+    }
+
+    public void BuyMinerAction()
+    {
+        ValueManager.instance.AddCurrentEtherum(-0.01f);
+        MinerCard newMinerCard = ScriptableObject.CreateInstance<MinerCard>();
+        newMinerCard.rarity = (Rarity)Random.Range(0, 4);
+        newMinerCard.biome = (Biome)Random.Range(0, 5);
+        newMinerCard.movementSpeed = Random.Range(85,200)/100.0f;
+        newMinerCard.miningSpeed = Random.Range(85, 200) / 100.0f;
+        newMinerCard.buildingSpeed = Random.Range(5, 45);
+        newMinerCard.buildingCost = Random.Range(15, 50);
+        AssetDatabase.CreateAsset(newMinerCard, "Assets/MinerCard/Miner" + Random.Range(1, 999999999) + ".asset"); // Ouai ouai Inshallah encore
+        listMiner.Add(newMinerCard);
+
+        UpdateMineButtonsInteractivity();
+        UpdateMinerButtonsInteractivity();
+        UpdateMinerCardView();
+        UpdateSellButton();
     }
 
     public void UpdateSellButton()
