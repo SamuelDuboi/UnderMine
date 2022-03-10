@@ -15,6 +15,7 @@ public class DrillBehavior : MonoBehaviour
     public Image timerImage;
     private float timeToMine;
     private float currentTime;
+    public ParticleSystemRenderer mat;
     public void CreatDrill(int number,int _stratNumber,Vector2 position,direction toGO, CryptosType _myType)
     {
         Rotate(toGO);
@@ -25,6 +26,26 @@ public class DrillBehavior : MonoBehaviour
         myType = _myType;
         myDrill = new Drill(number,stratNumber, position, toGO, myType);
         timeToMine = ValueManager.instance.currentMiner.buildingSpeed * 0.5f * (stratNumber+1);
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        mat.GetPropertyBlock(propBlock);
+        switch (_myType)
+        {
+            case CryptosType.bitcoin:
+                propBlock.SetInt("bitcoin", 1);
+                break;
+            case CryptosType.dogeCoins:
+                propBlock.SetInt("dogeCoin", 1);
+                break;
+            case CryptosType.Eterum:
+                propBlock.SetInt("ether", 1);
+                break;
+            case CryptosType.Tether:
+                propBlock.SetInt("tether", 1);
+                break;
+            default:
+                break;
+        }
+        mat.SetPropertyBlock(propBlock);
         canvas.SetActive(true);
         StartCoroutine(TimeBeforDrill());
     }
@@ -52,6 +73,26 @@ public class DrillBehavior : MonoBehaviour
         stratNumber = _myDrill.stratNumber;
         myType = _myDrill.myType;
         myDrill = _myDrill;
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        mat.GetPropertyBlock(propBlock);
+        switch (myType)
+        {
+            case CryptosType.bitcoin:
+                propBlock.SetInt("bitcoin", 1);
+                break;
+            case CryptosType.dogeCoins:
+                propBlock.SetInt("dogeCoin", 1);
+                break;
+            case CryptosType.Eterum:
+                propBlock.SetInt("ether", 1);
+                break;
+            case CryptosType.Tether:
+                propBlock.SetInt("tether", 1);
+                break;
+            default:
+                break;
+        }
+        mat.SetPropertyBlock(propBlock);
         StartCoroutine(GenerateMoney());
     }
     IEnumerator GenerateMoney()
