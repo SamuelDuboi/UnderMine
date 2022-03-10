@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - CracksSpreading: 0
     - Empty: 0
-    - Rotation: 3.14
+    - Rotation: 0
     - Selected: 0
     m_Colors:
     - ColorSelection: {r: 0.6037736, g: 0.3637002, b: 0.2249911, a: 1}

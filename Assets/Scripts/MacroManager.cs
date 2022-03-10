@@ -27,6 +27,7 @@ public class MacroManager : MonoBehaviour
 
     [Space(15)]
 
+    public List<GameObject> minePrefabs;
     public MineCardUI mineImage;
     public MineCardUI mineSelectedImage;
     public MinerCardUI minerImage;

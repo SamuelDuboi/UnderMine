@@ -28,6 +28,7 @@ public class MoneyManager : MonoBehaviour
     public void AddDrill(CryptosType type)
     {
         drillNumber[(int)type]++;
+        drillCost.text = DrillCost().ToString();
     }
     private void Start()
     {
@@ -128,14 +129,24 @@ public class MoneyManager : MonoBehaviour
     public void RemoveDrill(CryptosType myType)
     {
         drillNumber[(int)myType]--;
+        drillCost.text = DrillCost().ToString();
     }
 
     IEnumerator NotEnoughtMoeny()
     {
-        for (int i = 0; i < 50; i++)
+        for (int w = 0; w < 3; w++)
         {
-            dollardPanel.color = Color.Lerp(initPanelColor, new Color(240, 0, 0, initPanelColor.a), (Mathf.Cos(i*0.1f)+1)*0.5f);
-            yield return new WaitForSeconds(0.1f);
+            for (float i = 0; i < 50; i++)
+            {
+                dollardPanel.color = Color.Lerp(initPanelColor, new Color(0.9f, 0, 0, initPanelColor.a), i * 0.2f);
+                yield return new WaitForSeconds(0.01f);
+            }
+            for (float x = 50; x > 0; x--)
+            {
+                dollardPanel.color = Color.Lerp(initPanelColor, new Color(0.9f, 0, 0, initPanelColor.a), x * 0.02f);
+                yield return new WaitForSeconds(0.02f);
+            }
         }
+       
     }
 }

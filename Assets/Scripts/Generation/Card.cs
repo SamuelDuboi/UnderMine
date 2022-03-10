@@ -135,7 +135,8 @@ public class Card : MonoBehaviour
             else
                 materialValue = 2;
             previusMaterialNumber = materialValue;
-           
+            if (y == 0)
+                materialValue = 0;
                 GameObject newGo = new GameObject();
                 
                 var chunk = newGo.AddComponent<Chunk>();
