@@ -70,6 +70,7 @@ public class SaveSystem
     public void Saving(int mineIndex, Drill myDrill)
     {
         mines[mineIndex].drills.Add(myDrill);
+        mines[mineIndex].cryptosValue = MoneyManager.instance.MoneyValues();
         var dataPath = Path.Combine(Application.persistentDataPath, "mine" + mineIndex.ToString() + ".json");
         string json = JsonUtility.ToJson(mines[mineIndex]);
         StreamWriter sw = File.CreateText(dataPath);

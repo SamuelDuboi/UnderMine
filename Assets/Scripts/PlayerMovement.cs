@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (tileTargeted.Count>0 && tileTargeted[0]!= null) 
         {
-          
+           
             movement = (tileTargeted[0].transform.position - transform.position);
             if (movement.magnitude < 0.05f)
             {
@@ -114,6 +114,8 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = tileTargeted[0].transform.position;
                 tileTargeted[0].UnSelect();
                 tileTargeted.RemoveAt(0);
+                animator.SetFloat("Forward", 0);
+                animator.SetFloat("Strafe", 0);
             }
         }
         else if(positionToReach != Vector2.zero)
@@ -121,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
             movement = (positionToReach -(Vector2) transform.position);
             if (movement.magnitude < 0.05f)
             {
+                animator.SetFloat("Forward", 0);
+                animator.SetFloat("Strafe", 0);
                 movement = Vector2.zero;
                 transform.position = positionToReach;
                 positionToReach = Vector2.zero;
@@ -128,6 +132,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            animator.SetFloat("Forward", 0);
+            animator.SetFloat("Strafe", 0);
             movement = Vector2.zero;
         }
 
@@ -146,10 +152,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Raycast(Vector2.right, transform.position + new Vector3(colliderRect.xMax / 2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2),out hit))
                 {
                     // Debug.DrawRay(transform.position + new Vector3(colliderRect.xMax / 2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2), Vector3.right, Color.red);
-                    
-                    tileSelected = hit.collider.GetComponent<TileBehavior>();
-                    tileSelected.Select();
-                    tileSelected = tileSelected.Digg();
+
+                    Dig(hit);
                     movingDirection -= Vector2.right;
                     break;
                 }
@@ -264,7 +268,7 @@ public class PlayerMovement : MonoBehaviour
         //ici mettre le son du d�placement
         //Attention cette m�thode est appel� Update donc il faut cr�er un condition qui attend que le son soit fini avant de le rejouer
         transform.Translate(direction * speed * Time.deltaTime);
-        TileGenerator.instance.CheckPos(transform.position);
+        //TileGenerator.instance.CheckPos(transform.position);
         animator.SetFloat("Forward", direction.y);
         animator.SetFloat("Strafe", direction.x);
     }

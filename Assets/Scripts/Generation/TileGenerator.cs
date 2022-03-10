@@ -35,7 +35,7 @@ public class TileGenerator : MonoBehaviour
                 if (tile.indexParentChunk == i)
                     tiles.Add(tile);
             }
-            currentCard.chunks[i].DestroyExistingChunk(tiles, myCryptos);
+            //currentCard.chunks[i].DestroyExistingChunk(tiles, myCryptos);
             currentCard.chunks[i].DisableFirstRow(myCryptos);
         }
 
