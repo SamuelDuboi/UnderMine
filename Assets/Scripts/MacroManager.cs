@@ -31,6 +31,7 @@ public class MacroManager : MonoBehaviour
     public List<GameObject> minePrefabsMiner;
     public List<GameObject> minePrefabsTrading;
     public List<GameObject> minerPrefabs;
+    public List<GameObject> minerPrefabsTrading;
 
     [Space(15)]
 
@@ -200,10 +201,10 @@ public class MacroManager : MonoBehaviour
         minePrefabs[indexMineSelection].SetActive(true);
 
         minePrefabs[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = listMine[indexMineSelection];
-        mineTradeImage.mineCard = listMine[indexMineSelection];
+        minePrefabsTrading[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = listMine[indexMineSelection];
 
         minePrefabs[indexMineSelection].GetComponentInChildren<MineCardUI>().UpdateCardContent();
-        mineTradeImage.UpdateCardContent();
+        minePrefabsTrading[indexMineSelection].GetComponentInChildren<MineCardUI>().UpdateCardContent();
     }
     #endregion
 
@@ -280,10 +281,10 @@ public class MacroManager : MonoBehaviour
             min.SetActive(false);
         }
         minerPrefabs[indexMinerSelection].SetActive(true);
-        minePrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
-        minerTradeImage.minerCard = listMiner[indexMinerSelection];
+        minerPrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
+        minePrefabsTrading[indexMinerSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
         minePrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().UpdateCardContent();
-        minerTradeImage.UpdateCardContent();
+        minePrefabsTrading[indexMinerSelection].GetComponentInChildren<MinerCardUI>().UpdateCardContent();
     }
 
     public void BackToMineAction()
