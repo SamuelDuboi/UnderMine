@@ -381,9 +381,14 @@ public class MacroManager : MonoBehaviour
 
     public void UpdateSellButton()
     {
-        sellMineText.text = "Sell - " + listMine[indexMineSelection].ethPrice + " ETH";
-        sellMinerText.text = "Sell - " + listMiner[indexMinerSelection].ethPrice + " ETH";
+        sellMineText.text = "Vendre : +" + listMine[indexMineSelection].ethPrice + " ETH";
+        sellMinerText.text = "Vendre : +" + listMiner[indexMinerSelection].ethPrice + " ETH";
     }
 
     #endregion
+
+    public void QuitGameAction()
+    {
+        Application.Quit();
+    }
 }
