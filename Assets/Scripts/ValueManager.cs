@@ -8,6 +8,7 @@ public class ValueManager : MonoBehaviour
     public float CurrentMoney { get; private set; }
     public float globalMoney { get; private set; }
     public int minerIndex { get; private set; }
+    public float CurrentEtherum { get; private set; }
 
     public MinerCard currentMiner;
 
@@ -43,6 +44,10 @@ public class ValueManager : MonoBehaviour
     public void AddGlobalMoney(float value)
     {
         globalMoney += value;
+    }
+    public void AddCurrentEtherum(float value)
+    {
+        CurrentEtherum += value;
     }
 
     public void SetMinerCard(MinerCard miner)
