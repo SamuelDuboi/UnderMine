@@ -18,6 +18,7 @@ public class MineCard : ScriptableObject
     public float construct = 0.0f;
     public float incomeParMinute = 0.0f;
     public MineInventory inventory = new MineInventory();
+    public float ethPrice = 0.002f;
 
     public void RevaluateIncome()
     {
@@ -30,8 +31,11 @@ public class MineCard : ScriptableObject
             inventory.inventory.TryGetValue(ct, out count);
             incomeParMinute += count * FakeStockMarket.instance.tradeValues[ct];
         }
-    }
 
+        // YOLO
+        ethPrice = (0.002f + (0.004f * (incomeParMinute / 50))) * ((int)rarity + 1);
+
+    }
 }
 
 public class MineInventory

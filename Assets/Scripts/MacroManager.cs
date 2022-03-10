@@ -9,18 +9,46 @@ public class MacroManager : MonoBehaviour
     public List<MineCard> listMine;
     public List<MinerCard> listMiner;
 
+    [Space(15)]
+
     public MineCard selectedMine;
+
+    [Space(15)]
 
     public GameObject mineSelectionCanvas;
     public GameObject minerSelectionCanvas;
+    public GameObject tradeMenuCanvas;
+
+    [Space(15)]
+
     public Text moneyText;
+
+    [Space(15)]
+
     public MineCardUI mineImage;
     public MineCardUI mineSelectedImage;
     public MinerCardUI minerImage;
+    public MineCardUI mineTradeImage;
+    public MinerCardUI minerTradeImage;
+
+    [Space(15)]
+
     public Button nextMineButton;
     public Button previousMineButton;
     public Button nextMinerButton;
     public Button previousMinerButton;
+    public Button nextMineTradeButton;
+    public Button previousMineTradeButton;
+    public Button nextMinerTradeButton;
+    public Button previousMinerTradeButton;
+    public Button sellMineButton;
+    public Button sellMinerButton;
+
+    [Space(15)]
+
+    public Text sellMineText;
+    public Text sellMinerText;
+
 
     private bool canGenerateIncome = true;
 
@@ -40,9 +68,11 @@ public class MacroManager : MonoBehaviour
            
         }
         RevaluateAllMineIncome();
+        RevaluateMinerEthPrices();
         StartCoroutine(GenerateIncome());
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
+        UpdateSellButton();
     }
 
     private void Update()
@@ -55,6 +85,14 @@ public class MacroManager : MonoBehaviour
         foreach(MineCard mc in listMine)
         {
             mc.RevaluateIncome();
+        }
+    }
+
+    public void RevaluateMinerEthPrices()
+    {
+        foreach (MinerCard mc in listMiner)
+        {
+            mc.UpdateEthPrice();
         }
     }
 
@@ -84,6 +122,7 @@ public class MacroManager : MonoBehaviour
         ValueManager.instance.NextMine(-1);
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
+        UpdateSellButton();
     }
 
     public void NextMineAction()
@@ -92,6 +131,7 @@ public class MacroManager : MonoBehaviour
         ValueManager.instance.NextMine(1);
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
+        UpdateSellButton();
     }
 
     public void ConfirmMineAction()
@@ -110,27 +150,35 @@ public class MacroManager : MonoBehaviour
         if (indexMineSelection == 0)
         {
             previousMineButton.interactable = false;
+            previousMineTradeButton.interactable = false;
+            sellMineButton.interactable = false;
         }
         else
         {
             previousMineButton.interactable = true;
+            previousMineTradeButton.interactable = true;
+            sellMineButton.interactable = true;
         }
 
 
         if (indexMineSelection == listMine.Count - 1)
         {
             nextMineButton.interactable = false;
+            nextMineTradeButton.interactable = false;
         }
         else
         {
             nextMineButton.interactable = true;
+            nextMineTradeButton.interactable = true;
         }
     }
 
     private void UpdateMineCardView()
     {
         mineImage.mineCard = listMine[indexMineSelection];
+        mineTradeImage.mineCard = listMine[indexMineSelection];
         mineImage.UpdateCardContent();
+        mineTradeImage.UpdateCardContent();
     }
     #endregion
 
@@ -142,6 +190,7 @@ public class MacroManager : MonoBehaviour
         ValueManager.instance.NextMiner(-1);
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
+        UpdateSellButton();
     }
 
     public void NextMinerAction()
@@ -150,6 +199,7 @@ public class MacroManager : MonoBehaviour
         ValueManager.instance.NextMiner(1);
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
+        UpdateSellButton();
     }
 
     public void ConfirmMinerAction()
@@ -166,27 +216,35 @@ public class MacroManager : MonoBehaviour
         if (indexMinerSelection == 0)
         {
             previousMinerButton.interactable = false;
+            previousMinerTradeButton.interactable = false;
+            sellMinerButton.interactable = false;
         }
         else
         {
             previousMinerButton.interactable = true;
+            previousMinerTradeButton.interactable = true;
+            sellMinerButton.interactable = true;
         }
 
 
         if (indexMinerSelection == listMiner.Count - 1)
         {
             nextMinerButton.interactable = false;
+            nextMinerTradeButton.interactable = false;
         }
         else
         {
-            nextMinerButton.interactable = true;
+            nextMinerButton.interactable = true; 
+            nextMinerTradeButton.interactable = true;
         }
     }
 
     private void UpdateMinerCardView()
     {
         minerImage.minerCard = listMiner[indexMinerSelection];
+        minerTradeImage.minerCard = listMiner[indexMinerSelection];
         minerImage.UpdateCardContent();
+        minerTradeImage.UpdateCardContent();
     }
 
     public void BackToMineAction()
@@ -194,6 +252,31 @@ public class MacroManager : MonoBehaviour
         selectedMine = null;
         minerSelectionCanvas.SetActive(false);
         mineSelectionCanvas.SetActive(true);
+    }
+
+    #endregion
+
+    #region Trade Menu UI
+
+    public void OpenTradeMenuAction()
+    {
+        mineSelectionCanvas.SetActive(false);
+        tradeMenuCanvas.SetActive(true);
+        UpdateMinerButtonsInteractivity();
+        UpdateMinerCardView();
+        UpdateSellButton();
+    }
+
+    public void CloseTradeMenuAction()
+    {
+        tradeMenuCanvas.SetActive(false);
+        mineSelectionCanvas.SetActive(true);
+    }
+
+    public void UpdateSellButton()
+    {
+        sellMineText.text = "Sell - " + listMine[indexMineSelection].ethPrice + " ETH";
+        sellMinerText.text = "Sell - " + listMiner[indexMinerSelection].ethPrice + " ETH";
     }
 
     #endregion
