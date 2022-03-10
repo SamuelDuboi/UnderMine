@@ -55,6 +55,10 @@ public class Minor : Character
         RaycastHit hit;
         movement = Vector2.zero;
         tile = null;
+       
+        if (Physics.OverlapSphere(transform.position, 0.2f, 1<<9).Length > 0)
+            return;
+        Debug.DrawRay(transform.position, Vector3.up, Color.blue, 10);
         if (Physics.Raycast(mousRay, out hit,Mathf.Infinity, playerMovement.layerMask))
         {
             movement = hit.collider.transform.position - transform.position;
