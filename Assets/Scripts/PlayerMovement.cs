@@ -107,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
                 if(Isdigging)
                 {
                     Isdigging = false;
+                    animator.SetBool("action", false);
                 }
                 movement = Vector2.zero;
                 transform.position = tileTargeted[0].transform.position;
@@ -232,12 +233,13 @@ public class PlayerMovement : MonoBehaviour
             playDigSound = true;
         }
 
+        animator.SetBool("action", true);
         // ici mettre le son qui creuse
         //Attention cette m�thode est appel� Update donc il faut cr�er un condition qui attend que le son soit fini avant de le rejouer
         tileSelected = hit.collider.GetComponent<TileBehavior>();
         tileSelected.Select();
         tileSelected = tileSelected.Digg();
-        animator.SetTrigger("actionc");
+
     }
 
     private void Move(Vector2 direction)
