@@ -59,6 +59,7 @@ public class MacroManager : MonoBehaviour
     private int indexMineSelection = 0;
     private int indexMinerSelection = 0;
 
+    private bool isTrading;
     private void Start()
     {
         for (int i = 0; i < listMine.Count; i++)
@@ -198,7 +199,16 @@ public class MacroManager : MonoBehaviour
         {
             min.SetActive(false);
         }
-        minePrefabs[indexMineSelection].SetActive(true);
+        foreach (var min in minePrefabsTrading)
+        {
+            min.SetActive(false);
+        }
+        if (isTrading)
+        {
+            minePrefabsTrading[indexMineSelection].SetActive(true);
+        }
+        else
+            minePrefabs[indexMineSelection].SetActive(true);
 
         minePrefabs[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = listMine[indexMineSelection];
         minePrefabsTrading[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = listMine[indexMineSelection];
@@ -280,17 +290,35 @@ public class MacroManager : MonoBehaviour
         {
             min.SetActive(false);
         }
-        minerPrefabs[indexMinerSelection].SetActive(true);
-        minerPrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
-        minePrefabsTrading[indexMinerSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
-        minePrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().UpdateCardContent();
-        minePrefabsTrading[indexMinerSelection].GetComponentInChildren<MinerCardUI>().UpdateCardContent();
+        foreach (var min in minerPrefabsTrading)
+        {
+            min.SetActive(false);
+        }
+        if (isTrading)
+        {
+            minerPrefabsTrading[indexMineSelection].SetActive(true);
+        }
+        else
+            minerPrefabs[indexMineSelection].SetActive(true);
+        minerPrefabs[indexMinerSelection].GetComponent<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
+        minerPrefabsTrading[indexMinerSelection].GetComponent<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
+        minerPrefabs[indexMinerSelection].GetComponent<MinerCardUI>().UpdateCardContent();
+        minerPrefabsTrading[indexMinerSelection].GetComponent<MinerCardUI>().UpdateCardContent();
     }
 
     public void BackToMineAction()
     {
         selectedMine = null;
         minerSelectionCanvas.SetActive(false);
+        foreach (var min in minerPrefabs)
+        {
+            min.SetActive(false);
+        }
+        foreach (var min in minePrefabsMiner)
+        {
+            min.SetActive(false);
+        }
+        minePrefabs[indexMineSelection].SetActive(true);
         mineSelectionCanvas.SetActive(true);
     }
 
@@ -301,6 +329,16 @@ public class MacroManager : MonoBehaviour
     public void OpenTradeMenuAction()
     {
         mineSelectionCanvas.SetActive(false);
+        foreach (var min in minePrefabs)
+        {
+            min.SetActive(false);
+        }
+        foreach (var min in minerPrefabs)
+        {
+            min.SetActive(false);
+        }
+        minePrefabsTrading[indexMineSelection].SetActive(true);
+        isTrading = true;
         tradeMenuCanvas.SetActive(true);
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
@@ -309,6 +347,16 @@ public class MacroManager : MonoBehaviour
 
     public void CloseTradeMenuAction()
     {
+        foreach (var min in minePrefabsTrading)
+        {
+            min.SetActive(false);
+        }
+        foreach (var min in minerPrefabsTrading)
+        {
+            min.SetActive(false);
+        }
+        minePrefabs[indexMineSelection].SetActive(true);
+        isTrading = false;
         tradeMenuCanvas.SetActive(false);
         mineSelectionCanvas.SetActive(true);
     }
@@ -352,7 +400,7 @@ public class MacroManager : MonoBehaviour
         newMineCard.sceneName = "Mine" + Random.Range(1, 4);
         newMineCard.rarity = (Rarity)Random.Range(0, 4);
         newMineCard.biome = (Biome)Random.Range(0, 5);
-        AssetDatabase.CreateAsset(newMineCard, "Assets/MineCard/Mine" + Random.Range(5, 999999999) + ".asset"); // Inshallah
+        //AssetDatabase.CreateAsset(newMineCard, "Assets/MineCard/Mine" + Random.Range(5, 999999999) + ".asset"); // Inshallah
         listMine.Add(newMineCard);
 
         UpdateMineButtonsInteractivity();
@@ -371,7 +419,7 @@ public class MacroManager : MonoBehaviour
         newMinerCard.miningSpeed = Random.Range(85, 200) / 100.0f;
         newMinerCard.buildingSpeed = Random.Range(5, 45);
         newMinerCard.buildingCost = Random.Range(15, 50);
-        AssetDatabase.CreateAsset(newMinerCard, "Assets/MinerCard/Miner" + Random.Range(1, 999999999) + ".asset"); // Ouai ouai Inshallah encore
+        //AssetDatabase.CreateAsset(newMinerCard, "Assets/MinerCard/Miner" + Random.Range(1, 999999999) + ".asset"); // Ouai ouai Inshallah encore
         listMiner.Add(newMinerCard);
 
         UpdateMineButtonsInteractivity();

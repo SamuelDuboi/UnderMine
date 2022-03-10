@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/HubScene.unity
-    guid: bc2db2b0d8d4434428f6add963b5b900
+    guid: 3c8490601bc66294d89b2cc3b8cb7eb4
   - enabled: 1
     path: Assets/Scenes/Mines/Mine1.unity
     guid: b31bb3a909c5736478c2eff3b44f1b33

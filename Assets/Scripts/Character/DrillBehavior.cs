@@ -51,13 +51,14 @@ public class DrillBehavior : MonoBehaviour
     }
     IEnumerator TimeBeforDrill()
     {
+        timerImage.transform.parent.gameObject.SetActive(true);
         while(currentTime< timeToMine)
         {
             yield return new WaitForFixedUpdate();
             currentTime += Time.deltaTime;
             timerImage.fillAmount = currentTime / timeToMine;
         }
-        timerImage.gameObject.SetActive(false);
+        timerImage.transform.parent.gameObject.SetActive(false);
         canvas.SetActive(false);
         SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, myDrill);
         StartCoroutine(GenerateMoney());
