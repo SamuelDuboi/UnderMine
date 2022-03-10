@@ -31,7 +31,7 @@ public class MacroManager : MonoBehaviour
 
     private void Start()
     {
-
+        Debug.LogError(SaveSystem.Instance.mines[0].cryptos[3]);
         for (int i = 0; i < listMine.Count; i++)
         {
             var myMine = SaveSystem.Instance.mines[i];

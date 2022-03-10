@@ -33,7 +33,7 @@ public class SaveSystem
         for (int i = 0; i < 4; i++)
         {
             mines[index].cryptos.Add( (CryptosType)i);
-            mines[index].cryptosValue.Add( 0);
+            mines[index].cryptosValue.Add((uint)0);
         }
         var dataPath = Path.Combine(Application.persistentDataPath, "mine" + index.ToString() + ".json");
         string json = JsonUtility.ToJson(mines[index]);

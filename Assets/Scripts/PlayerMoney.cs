@@ -39,6 +39,15 @@ public class PlayerMoney : ScriptableObject
     }
     public void ChangeValue(CryptosType cryptos, float value)
     {
+        if(myCryptos.Count!= 4)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                myCryptos.Add(new CryptosInInventory(TileGenerator.instance.myCryptos[i]));
+            }
+        }
+
+
         for (int i = 0; i < myCryptos.Count; i++)
         {
             if (myCryptos[i].myCrypto.myCurrency == cryptos)

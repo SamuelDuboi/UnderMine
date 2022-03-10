@@ -7,9 +7,9 @@ public class Character : MonoBehaviour
     public PlayerMovement playerMovement;
    // public PlayerMoney currentPlayer;
   
-    internal virtual void Start()
+    internal virtual IEnumerator Start()
     {
-       
+        yield return new WaitForSeconds(0.1f);
     }
     internal virtual void Update()
     {

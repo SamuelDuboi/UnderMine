@@ -24,9 +24,9 @@ public class Minor : Character
         Destroy(gameObject);
     }
 
-    internal override void Start()
+    internal override IEnumerator Start()
     {
-        base.Start();
+        yield return new WaitForFixedUpdate();
         values = MoneyManager.instance.MoneyValues();
        
         colliderRect = new Rect(playerMovement.boxCollider.center, playerMovement.boxCollider.size);
