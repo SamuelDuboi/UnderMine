@@ -28,11 +28,9 @@ public class MacroManager : MonoBehaviour
     [Space(15)]
 
     public List<GameObject> minePrefabs;
-    public MineCardUI mineImage;
-    public MineCardUI mineSelectedImage;
-    public MinerCardUI minerImage;
-    public MineCardUI mineTradeImage;
-    public MinerCardUI minerTradeImage;
+    public List<GameObject> minePrefabsMiner;
+    public List<GameObject> minePrefabsTrading;
+    public List<GameObject> minerPrefabs;
 
     [Space(15)]
 
@@ -144,9 +142,14 @@ public class MacroManager : MonoBehaviour
     {
         selectedMine = listMine[indexMineSelection];
         mineSelectionCanvas.SetActive(false);
+        foreach (var card in minePrefabs)
+        {
+            card.SetActive(false);
+        }
+        minePrefabsMiner[indexMineSelection].SetActive(true);
         minerSelectionCanvas.SetActive(true);
-        mineSelectedImage.mineCard = selectedMine;
-        mineSelectedImage.UpdateCardContent();
+        minePrefabsMiner[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = selectedMine;
+        minePrefabsMiner[indexMineSelection].GetComponentInChildren<MineCardUI>().UpdateCardContent();
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
     }
@@ -190,9 +193,16 @@ public class MacroManager : MonoBehaviour
 
     private void UpdateMineCardView()
     {
-        mineImage.mineCard = listMine[indexMineSelection];
+        foreach (var min in minePrefabs)
+        {
+            min.SetActive(false);
+        }
+        minePrefabs[indexMineSelection].SetActive(true);
+
+        minePrefabs[indexMineSelection].GetComponentInChildren<MineCardUI>().mineCard = listMine[indexMineSelection];
         mineTradeImage.mineCard = listMine[indexMineSelection];
-        mineImage.UpdateCardContent();
+
+        minePrefabs[indexMineSelection].GetComponentInChildren<MineCardUI>().UpdateCardContent();
         mineTradeImage.UpdateCardContent();
     }
     #endregion
@@ -265,9 +275,14 @@ public class MacroManager : MonoBehaviour
 
     private void UpdateMinerCardView()
     {
-        minerImage.minerCard = listMiner[indexMinerSelection];
+        foreach (var min in minerPrefabs)
+        {
+            min.SetActive(false);
+        }
+        minerPrefabs[indexMinerSelection].SetActive(true);
+        minePrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
         minerTradeImage.minerCard = listMiner[indexMinerSelection];
-        minerImage.UpdateCardContent();
+        minePrefabs[indexMineSelection].GetComponentInChildren<MinerCardUI>().UpdateCardContent();
         minerTradeImage.UpdateCardContent();
     }
 
