@@ -30,10 +30,11 @@ public class MoneyManager : MonoBehaviour
     private void Start()
     {
         //change to the actual index of the Mine
-        for (int i = 0; i < SaveSystem.Instance.mines[0].cryptos.Count; i++)
+        var indexOfMine = ValueManager.instance.mineIndex;
+        for (int i = 0; i < SaveSystem.Instance.mines[indexOfMine].cryptos.Count; i++)
         {
-            playerMoney.ChangeValue(SaveSystem.Instance.mines[0].cryptos[i], SaveSystem.Instance.mines[0].cryptosValue[i]);
-            StartCoroutine(RevenuPerSec(SaveSystem.Instance.mines[0].cryptos[i]));
+            playerMoney.ChangeValue(SaveSystem.Instance.mines[indexOfMine].cryptos[i], SaveSystem.Instance.mines[indexOfMine].cryptosValue[i]);
+            StartCoroutine(RevenuPerSec(SaveSystem.Instance.mines[indexOfMine].cryptos[i]));
             coinValue[i].text = playerMoney.myCryptos[i].AddRevenu(0).ToString();
             drillNumber.Add(0);
         }
@@ -106,7 +107,7 @@ public class MoneyManager : MonoBehaviour
     IEnumerator SetGlobalMoney()
     {
         yield return new WaitForSeconds(1f);
-        stratNumber = SaveSystem.Instance.mines[0].strat;
+        stratNumber = SaveSystem.Instance.mines[ValueManager.instance.mineIndex].strat;
         float value = 0;
         foreach (var crypto in playerMoney.myCryptos)
         {

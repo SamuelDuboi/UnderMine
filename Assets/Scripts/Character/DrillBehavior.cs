@@ -21,8 +21,7 @@ public class DrillBehavior : MonoBehaviour
         stratNumber = _stratNumber;
         myType = _myType;
         myDrill = new Drill(number,stratNumber, position, toGO, myType);
-        //change index to mine index
-        SaveSystem.Instance.Saving(0, myDrill);
+        SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, myDrill);
         StartCoroutine(GenerateMoney());
     }
 
@@ -83,7 +82,7 @@ public class DrillBehavior : MonoBehaviour
         if(_direction ==myDrill.direction)
         {
             MoneyManager.instance.RemoveDrill(myDrill.myType);
-            SaveSystem.Instance.mines[0].drills.Remove(myDrill);
+            SaveSystem.Instance.mines[ValueManager.instance.mineIndex].drills.Remove(myDrill);
             Destroy(gameObject);
         }
     }

@@ -10,7 +10,6 @@ public class MacroManager : MonoBehaviour
     public List<MinerCard> listMiner;
 
     public MineCard selectedMine;
-    public MinerCard selectedMiner;
 
     public GameObject mineSelectionCanvas;
     public GameObject minerSelectionCanvas;
@@ -23,7 +22,6 @@ public class MacroManager : MonoBehaviour
     public Button nextMinerButton;
     public Button previousMinerButton;
 
-    public float money = 0;
     private bool canGenerateIncome = true;
 
     private int indexMineSelection = 0;
@@ -31,7 +29,6 @@ public class MacroManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.LogError(SaveSystem.Instance.mines[0].cryptos[3]);
         for (int i = 0; i < listMine.Count; i++)
         {
             var myMine = SaveSystem.Instance.mines[i];
@@ -50,7 +47,7 @@ public class MacroManager : MonoBehaviour
 
     private void Update()
     {
-        moneyText.text = (Mathf.Round(money*100) / 100) + " $";
+        moneyText.text = (Mathf.Round(ValueManager.instance.globalMoney*100) / 100) + " $";
     }
 
     public void RevaluateAllMineIncome()
@@ -65,7 +62,7 @@ public class MacroManager : MonoBehaviour
     {
         while(canGenerateIncome)
         {
-            money += CalculateIncomePerQuarterSecond();
+            ValueManager.instance.AddGlobalMoney( CalculateIncomePerQuarterSecond());
             yield return new WaitForSeconds(0.25f);
         }
     }
@@ -84,6 +81,7 @@ public class MacroManager : MonoBehaviour
     public void PreviousMineAction()
     {
         indexMineSelection -= 1;
+        ValueManager.instance.NextMine(-1);
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
     }
@@ -91,6 +89,7 @@ public class MacroManager : MonoBehaviour
     public void NextMineAction()
     {
         indexMineSelection += 1;
+        ValueManager.instance.NextMine(1);
         UpdateMineButtonsInteractivity();
         UpdateMineCardView();
     }
@@ -140,6 +139,7 @@ public class MacroManager : MonoBehaviour
     public void PreviousMinerAction()
     {
         indexMinerSelection -= 1;
+        ValueManager.instance.NextMiner(-1);
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
     }
@@ -147,13 +147,14 @@ public class MacroManager : MonoBehaviour
     public void NextMinerAction()
     {
         indexMinerSelection += 1;
+        ValueManager.instance.NextMiner(1);
         UpdateMinerButtonsInteractivity();
         UpdateMinerCardView();
     }
 
     public void ConfirmMinerAction()
     {
-        selectedMiner = listMiner[indexMinerSelection];
+        ValueManager.instance.SetMinerCard( listMiner[indexMinerSelection]);
         minerSelectionCanvas.SetActive(false);
         mineSelectionCanvas.SetActive(true);
 

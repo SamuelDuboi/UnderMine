@@ -26,8 +26,7 @@ public class TileGenerator : MonoBehaviour
     }
     void Start()
     {
-        // neeed to be change to the actual index of the mine
-       var save = SaveSystem.Instance.mines[0];
+       var save = SaveSystem.Instance.mines[ValueManager.instance.mineIndex];
         for (int i = 0; i < currentCard.chunks.Count; i++)
         {
             List<TileForSave> tiles = new List<TileForSave>();

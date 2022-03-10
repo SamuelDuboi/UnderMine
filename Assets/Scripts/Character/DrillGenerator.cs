@@ -9,7 +9,7 @@ public class DrillGenerator : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForFixedUpdate();
-        var drill = SaveSystem.Instance.mines[0].drills;
+        var drill = SaveSystem.Instance.mines[ValueManager.instance.mineIndex].drills;
         for (int i = 0; i < drill.Count; i++)
         {
             MoneyManager.instance.AddDrill(drill[i].myType);

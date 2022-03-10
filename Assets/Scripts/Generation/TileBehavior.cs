@@ -28,8 +28,7 @@ public class TileBehavior : MonoBehaviour
             Digg(1);
             gameObject.layer = 8;
             TryDestroyDrill();
-            //need to be changed to the actual index of the mine
-            SaveSystem.Instance.Saving(0,Minor.instance.values,myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
+            SaveSystem.Instance.Saving(ValueManager.instance.mineIndex,Minor.instance.values,myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
             return null;
         }
 
