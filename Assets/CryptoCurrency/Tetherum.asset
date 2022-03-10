@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCurrency: 3
   currentValue: 1
-  cryptoMatDirt: {fileID: 2100000, guid: ddfbba41916f409408bb60f107ce7751, type: 2}
-  cryptoMatStone: {fileID: 2100000, guid: b6623de603051ad40bbcf258709db7e9, type: 2}
-  cryptoMatCobel: {fileID: 2100000, guid: e88045ce0e1132e4ca49eb59f9d4c390, type: 2}
+  cryptoMatDirt: {fileID: 2100000, guid: d7ed9de173b3c5648933acf6791b6d4f, type: 2}
+  cryptoMatStone: {fileID: 2100000, guid: 00059783da1bbc44b87a0941bce1b620, type: 2}
+  cryptoMatCobel: {fileID: 2100000, guid: 11878ad5f1ccdca42ac89cabededc1f1, type: 2}
   difficultyToMine: 0.2
-  chanceOfAppearance: 8
+  chanceOfAppearance: 1

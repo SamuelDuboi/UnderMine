@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager instance;
@@ -11,8 +12,10 @@ public class MoneyManager : MonoBehaviour
     public PlayerMoney playerMoney;
     public float stratValue { get; private set; }
     public List<TextMeshProUGUI> coinValue;
-    public TextMeshProUGUI globalValuePerSec;
     public TextMeshProUGUI globalValue;
+    public TextMeshProUGUI drillCost;
+    public Image dollardPanel;
+    private Color initPanelColor;
     private void Awake()
     {
         if(instance ==null)
@@ -37,6 +40,7 @@ public class MoneyManager : MonoBehaviour
             coinValue[i].text = playerMoney.myCryptos[i].AddRevenu(0).ToString();
             drillNumber.Add(0);
         }
+        initPanelColor = dollardPanel.color;
         StartCoroutine(SetGlobalMoney());
     }
     public int TryChangeStrat(int value)
@@ -82,13 +86,17 @@ public class MoneyManager : MonoBehaviour
     public bool TryBuyDrill(CryptosType type)
     {
         float cost = DrillCost();
+        
         if (ValueManager.instance.CurrentMoney > cost)
         {
             ValueManager.instance.AddCurrentMoney(- cost);
+            drillCost.text = cost.ToString();
+            globalValue.text = ValueManager.instance.CurrentMoney.ToString();
             drillNumber[(int)type]++;
             
             return true;
         }
+        StartCoroutine(NotEnoughtMoeny());
         return false;
     }
     private float DrillCost()
@@ -112,7 +120,6 @@ public class MoneyManager : MonoBehaviour
         {
             value += crypto.GetRealValuePerSec();
         }
-        globalValuePerSec.text = (StratRevenu(stratNumber) + value).ToString() + "/s";
         ValueManager.instance.AddCurrentMoney( StratRevenu(stratNumber) + value);
         globalValue.text = ValueManager.instance.CurrentMoney.ToString();
         StartCoroutine(SetGlobalMoney());
@@ -121,5 +128,14 @@ public class MoneyManager : MonoBehaviour
     public void RemoveDrill(CryptosType myType)
     {
         drillNumber[(int)myType]--;
+    }
+
+    IEnumerator NotEnoughtMoeny()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            dollardPanel.color = Color.Lerp(initPanelColor, new Color(240, 0, 0, initPanelColor.a), (Mathf.Cos(i*0.1f)+1)*0.5f);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
