@@ -9,7 +9,6 @@ public class MoneyManager : MonoBehaviour
     public List<int> drillNumber = new List<int>();
     public float firstStratCost = 100;
     public PlayerMoney playerMoney;
-    public float globalMoney;
     public float stratValue { get; private set; }
     public List<TextMeshProUGUI> coinValue;
     public TextMeshProUGUI globalValuePerSec;
@@ -83,9 +82,9 @@ public class MoneyManager : MonoBehaviour
     public bool TryBuyDrill(CryptosType type)
     {
         float cost = DrillCost();
-        if (globalMoney > cost)
+        if (ValueManager.instance.CurrentMoney > cost)
         {
-            globalMoney -= cost;
+            ValueManager.instance.AddCurrentMoney(- cost);
             drillNumber[(int)type]++;
             
             return true;
@@ -114,8 +113,8 @@ public class MoneyManager : MonoBehaviour
             value += crypto.GetRealValuePerSec();
         }
         globalValuePerSec.text = (StratRevenu(stratNumber) + value).ToString() + "/s";
-        globalMoney += StratRevenu(stratNumber) + value;
-        globalValue.text = globalMoney.ToString();
+        ValueManager.instance.AddCurrentMoney( StratRevenu(stratNumber) + value);
+        globalValue.text = ValueManager.instance.CurrentMoney.ToString();
         StartCoroutine(SetGlobalMoney());
     }
 

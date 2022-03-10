@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class DrillBehavior : MonoBehaviour
 {
     Drill myDrill;
@@ -12,18 +12,36 @@ public class DrillBehavior : MonoBehaviour
     private int stratNumber;
     public GameObject canvas;
     public TextMeshProUGUI text;
+    public Image timerImage;
+    private float timeToMine;
+    private float currentTime;
     public void CreatDrill(int number,int _stratNumber,Vector2 position,direction toGO, CryptosType _myType)
     {
         Rotate(toGO);
         canvas.transform.rotation = Quaternion.identity;
-        canvas.transform.position += Vector3.right;
+        canvas.transform.localPosition = Vector3.right;
         drillNumber = number;
         stratNumber = _stratNumber;
         myType = _myType;
         myDrill = new Drill(number,stratNumber, position, toGO, myType);
+        timeToMine = ValueManager.instance.currentMiner.buildingSpeed * 0.5f * (stratNumber+1);
+        canvas.SetActive(true);
+        StartCoroutine(TimeBeforDrill());
+    }
+    IEnumerator TimeBeforDrill()
+    {
+        while(currentTime< timeToMine)
+        {
+            yield return new WaitForFixedUpdate();
+            currentTime += Time.deltaTime;
+            timerImage.fillAmount = currentTime / timeToMine;
+        }
+        timerImage.gameObject.SetActive(false);
+        canvas.SetActive(false);
         SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, myDrill);
         StartCoroutine(GenerateMoney());
     }
+
 
     public void CreatDrill(Drill _myDrill)
     {

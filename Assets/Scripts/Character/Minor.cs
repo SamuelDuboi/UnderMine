@@ -55,11 +55,11 @@ public class Minor : Character
         RaycastHit hit;
         movement = Vector2.zero;
         tile = null;
-        if (Physics.Raycast(mousRay, out hit))
+        if (Physics.Raycast(mousRay, out hit,Mathf.Infinity, playerMovement.layerMask))
         {
             movement = hit.collider.transform.position - transform.position;
         }
-        if (movement.magnitude <= 1f)
+        if (movement.magnitude <= 1f && movement.magnitude != 0)
         {
             tile = hit.collider.GetComponent<TileBehavior>();
             if (tile.GetCryptoTyp() == CryptosType.none)

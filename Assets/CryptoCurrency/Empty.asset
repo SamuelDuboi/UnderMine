@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56527f8fc9e2254698a6129a2144523, type: 3}
   m_Name: Empty
   m_EditorClassIdentifier: 
-  myCurrency: 3
+  myCurrency: 4
   currentValue: 0
   cryptoMatDirt: {fileID: 2100000, guid: bb44afc43d6253046b5ae5791779c36c, type: 2}
   cryptoMatStone: {fileID: 2100000, guid: 791c502462f3f3d4db5760a4ddbcdc1c, type: 2}

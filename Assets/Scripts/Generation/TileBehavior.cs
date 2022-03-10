@@ -14,6 +14,8 @@ public class TileBehavior : MonoBehaviour
     void Start()
     {
         InitColor = new Color(137f/255f, 83f/255f, 58f/255f, 50f/255f);
+        if (myTile.DiggingState != 0)
+            myTile.DiggingState /= ValueManager.instance.currentMiner.miningSpeed;
     }
 
     public int GetSratNumber()

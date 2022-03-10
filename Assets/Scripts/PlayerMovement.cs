@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         colliderRect = new Rect(boxCollider.center, boxCollider.size);
         tileTargeted = new List<TileBehavior>();
         animator = GetComponentInChildren<Animator>();
+        speed *= ValueManager.instance.currentMiner.movementSpeed;
     }
     public void Movement(InputAction.CallbackContext context)
     {
