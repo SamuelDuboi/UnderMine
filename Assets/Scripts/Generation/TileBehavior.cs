@@ -28,6 +28,7 @@ public class TileBehavior : MonoBehaviour
         {
             Selection(0);
             Digg(1);
+            ChangeColor(new Color(1, 1, 1, .2f));
             gameObject.layer = 8;
             TryDestroyDrill();
             SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, MoneyManager.instance.MoneyValues(),myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
@@ -115,7 +116,7 @@ public class TileBehavior : MonoBehaviour
         if (!myTile)
             myTile = gameObject.AddComponent<Tile>();
             myTile.Init(0, mycrypto, pos, indexOfChunk, isStone);
-        Digg(1);
+            Digg(1);
             gameObject.layer = 8;
             myTile.isDigged = true;
     }

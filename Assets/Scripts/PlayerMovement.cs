@@ -30,15 +30,17 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioSourceWalk;
     public AudioSource audioSourceDig;
 
+    public bool canMove;
+
     public Animator Animator { get => animator; set => animator = value; }
 
     private IEnumerator Start()
     {
+        animator = GetComponentInChildren<Animator>();
         yield return new WaitForEndOfFrame();
         //transform.position = ;
         colliderRect = new Rect(boxCollider.center, boxCollider.size);
         tileTargeted = new List<TileBehavior>();
-        animator = GetComponentInChildren<Animator>();
         speed *= ValueManager.instance.currentMiner.movementSpeed;
     }
     public void Movement(InputAction.CallbackContext context)
@@ -152,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
                 if (Raycast(Vector2.right, transform.position + new Vector3(colliderRect.xMax / 2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2),out hit))
                 {
                     // Debug.DrawRay(transform.position + new Vector3(colliderRect.xMax / 2, colliderRect.yMax / 2 - i * colliderRect.size.y / 2), Vector3.right, Color.red);
-
+                    
                     Dig(hit);
                     movingDirection -= Vector2.right;
                     break;

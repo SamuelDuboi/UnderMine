@@ -69,16 +69,16 @@ public class DrillBehavior : MonoBehaviour
         switch (toGO)
         {
             case direction.north:
-                transform.rotation = Quaternion.Euler(270, 90, 0);
-                break;
-            case direction.east:
                 transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
-            case direction.south:
+            case direction.east:
                 transform.rotation = Quaternion.Euler(90, 90, 0);
                 break;
-            case direction.west:
+            case direction.south:
                 transform.rotation = Quaternion.Euler(180, 90, 0);
+                break;
+            case direction.west:
+                transform.rotation = Quaternion.Euler(270, 90, 0);
                 break;
             default:
                 break;
