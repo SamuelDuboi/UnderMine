@@ -121,7 +121,7 @@ AnimatorState:
   - {fileID: 8438151703453069389}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
+  m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0
@@ -151,7 +151,7 @@ BlendTree:
     m_DirectBlendParameter: Strafe
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: 373873a41fc0b7d4ab339244ed89ad64, type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: d7d7ace23717e3b489abdda30adc1df9, type: 3}
     m_Threshold: 0.25
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -159,7 +159,7 @@ BlendTree:
     m_DirectBlendParameter: Strafe
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: d7d7ace23717e3b489abdda30adc1df9, type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: 373873a41fc0b7d4ab339244ed89ad64, type: 3}
     m_Threshold: 0.5
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -167,7 +167,7 @@ BlendTree:
     m_DirectBlendParameter: Strafe
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: 5898f20b640746f44901684a54bb4364, type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: a714f9e6d0f83d94c8a1812819013538, type: 3}
     m_Threshold: 0.75
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -175,7 +175,7 @@ BlendTree:
     m_DirectBlendParameter: Strafe
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: a714f9e6d0f83d94c8a1812819013538, type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: 04180f4491dabe74285309132acd9618, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -203,19 +203,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Strafe
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Forward
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

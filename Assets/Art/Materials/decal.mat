@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: decal
-  m_Shader: {fileID: -6465566751694194690, guid: 5f445c30c5730a949b6af396e08394d1, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 72a16525b49f99c439ba03b71cf76361, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
