@@ -154,7 +154,7 @@ Material:
     - _ZWrite: 1
     - bitcoin: 0
     - dogecoin: 0
-    - ether: 1
+    - ether: 0
     - tether: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

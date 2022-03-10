@@ -28,14 +28,14 @@ public class TileBehavior : MonoBehaviour
         {
             Selection(0);
             Digg(1);
-            ChangeColor(new Color(1, 1, 1, .2f));
+            Crack(1);
             gameObject.layer = 8;
             TryDestroyDrill();
-            SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, MoneyManager.instance.MoneyValues(),myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.isStone));
+            SaveSystem.Instance.Saving(ValueManager.instance.mineIndex, MoneyManager.instance.MoneyValues(),myTile.indexParentChunk/3, new TileForSave(myTile.indexParentChunk, myTile.position, myTile.materialValue));
             return null;
         }
 
-        ChangeColor(Color.Lerp( Color.red,Color.blue, myTile.Dig(Time.deltaTime) / timeToDig));
+        Crack(myTile.Dig(Time.deltaTime) / timeToDig);
         return this;
     }
     public float Collect()
@@ -48,7 +48,7 @@ public class TileBehavior : MonoBehaviour
             return myTile.cryptoType.currentValue;
         }
 
-        ChangeColor(Color.Lerp(Color.grey, Color.green, myTile.Dig(Time.deltaTime) / timeToDig));
+        Crack( myTile.Dig(Time.deltaTime) / timeToDig);
         return 0;
     }
     public void Select()
@@ -64,11 +64,11 @@ public class TileBehavior : MonoBehaviour
         Selection(0);
         return null;
     }
-    private void ChangeColor(Color color)
+    private void Crack(float lerpValue)
     {
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
         meshRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetColor("ColorSelection", color);
+        propBlock.SetFloat("CracksSpreading", (1-lerpValue)*20);
         meshRenderer.SetPropertyBlock(propBlock);
     }
 
@@ -88,7 +88,7 @@ public class TileBehavior : MonoBehaviour
         propBlock.SetColor("ColorSelection", InitColor);
         meshRenderer.SetPropertyBlock(propBlock);
     }
-    public void ApplyCrypto(int cryptoIndex,List<Cryptos> crypto, bool isStone, bool _isDigged, int indexOfChunk,Vector2  pos)
+    public void ApplyCrypto(int cryptoIndex,List<Cryptos> crypto, int materialValue, bool _isDigged, int indexOfChunk,Vector2  pos)
     {
         var mycrypto = crypto[cryptoIndex];
         timeToDig += indexOfChunk/3 ; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
@@ -96,26 +96,27 @@ public class TileBehavior : MonoBehaviour
         myTile = gameObject.AddComponent<Tile>();
         if (_isDigged)
         {
-            myTile.Init(0, mycrypto, pos,indexOfChunk,  isStone);
+            myTile.Init(0, mycrypto, pos,indexOfChunk, materialValue);
             Digg(1);
             gameObject.layer = 8;
             myTile.isDigged = true;
         }
         else
-        myTile.Init(timeToDig, mycrypto, pos,indexOfChunk, isStone);
-        if(!isStone)
+        myTile.Init(timeToDig, mycrypto, pos,indexOfChunk, materialValue);
+        if(materialValue ==0)
             meshRenderer.material = mycrypto.cryptoMatDirt;
-        else
+        else if(materialValue ==1)
             meshRenderer.material = mycrypto.cryptoMatStone;
-
+        else
+            meshRenderer.material = mycrypto.cryptoMatCobel;
     }
-    public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto, bool isStone, int indexOfChunk, Vector2 pos)
+    public void ApplyCrypto(int cryptoIndex, List<Cryptos> crypto, int materialValue, int indexOfChunk, Vector2 pos)
     {
         var mycrypto = crypto[cryptoIndex];
         timeToDig += indexOfChunk / 3 ; /** TileGenerator.instance.globalMultiplicator + mycrypto.difficultyToMine*/;
         if (!myTile)
             myTile = gameObject.AddComponent<Tile>();
-            myTile.Init(0, mycrypto, pos, indexOfChunk, isStone);
+            myTile.Init(0, mycrypto, pos, indexOfChunk, materialValue);
             Digg(1);
             gameObject.layer = 8;
             myTile.isDigged = true;
@@ -130,10 +131,12 @@ public class TileBehavior : MonoBehaviour
         Digg(1);
         gameObject.layer = 8;
         myTile.isDigged = true;
-        if (!myTile.isStone)
+        if (myTile.materialValue == 0)
             meshRenderer.material = mycrypto.cryptoMatDirt;
-        else
+        else if (myTile.materialValue == 1)
             meshRenderer.material = mycrypto.cryptoMatStone;
+        else
+            meshRenderer.material = mycrypto.cryptoMatCobel;
     }
     public void TryDestroyDrill()
     {

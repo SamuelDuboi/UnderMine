@@ -10,15 +10,15 @@ public class Tile : MonoBehaviour
     public bool isDigged;
     public float DiggingState;
     public int indexParentChunk;
-    public bool isStone;
-    public void Init (float diggingState, Cryptos _cryptoType, Vector2 _position, int _indexParentChunk, bool _isStone)
+    public int materialValue;
+    public void Init (float diggingState, Cryptos _cryptoType, Vector2 _position, int _indexParentChunk, int _materialValue)
     {
         DiggingState = diggingState;
         cryptoType = _cryptoType;
         position = _position;
         position.x--;
         indexParentChunk = _indexParentChunk;
-        isStone = _isStone;
+        materialValue = _materialValue;
     }
 
     public void Init(float diggingState, Cryptos _cryptoType)

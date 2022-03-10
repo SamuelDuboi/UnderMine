@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56527f8fc9e2254698a6129a2144523, type: 3}
   m_Name: Dogecoin
   m_EditorClassIdentifier: 
-  myCurrency: 0
+  myCurrency: 1
   currentValue: 15
   cryptoMatDirt: {fileID: 2100000, guid: 607a38502688e48498d9e7d4f78e784a, type: 2}
   cryptoMatStone: {fileID: 2100000, guid: 1af2599d0de3f7e41bbfd08936958cfb, type: 2}
+  cryptoMatCobel: {fileID: 2100000, guid: 5c0ed92acf4fb5c43adea1f14aee28be, type: 2}
   difficultyToMine: 0.6
   chanceOfAppearance: 10

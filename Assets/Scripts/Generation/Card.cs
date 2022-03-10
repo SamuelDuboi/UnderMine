@@ -41,15 +41,19 @@ public class Card : MonoBehaviour
                     EnableRow((int)position.y + 2, position.y);
                     return;
                 }
-
+                int materialValue = Random.Range(0, 100);
+                if (materialValue < 45)
+                    materialValue = 0;
+                else if (materialValue < 80)
+                    materialValue = 1;
+                else
+                    materialValue = 2;
                 for (int i = 0; i < 3; i++)
                 {
                     GameObject newGO = new GameObject();
-                    bool isStone = true;
-                    if ((-chunks.Count * sizeOfChunkY) % 2 == 0)
-                        isStone = false;
+                   
                     var chunk = newGO.AddComponent<Chunk>();
-                    chunk.Init(sizeOfChunkX, sizeOfChunkY,i, tilePrefab,tileEmptyPrefab, new Vector2(chunks[0].gameObject.transform.position.x, -chunks.Count * sizeOfChunkY), isStone, sizeOfTiles, myCryptos, i, ref newGO, out newGO);
+                    chunk.Init(sizeOfChunkX, sizeOfChunkY,i, tilePrefab,tileEmptyPrefab, new Vector2(chunks[0].gameObject.transform.position.x, -chunks.Count * sizeOfChunkY), materialValue, sizeOfTiles, myCryptos, i, ref newGO, out newGO);
                     if (!chunks[(int)position.y*3+i].gameObject.activeSelf)
                         newGO.SetActive(false);
                     newGO.transform.SetParent(transform);
@@ -120,28 +124,26 @@ public class Card : MonoBehaviour
     public void Populate(GameObject tilePrefab, float sizeOfTiles, GameObject tileEmptyPrefab)
     {
         chunks = new List<Chunk>();
+        int previusMaterialNumber = 0;
         for (int y = 0; y < numberOfChunkToLoad+5; y++)
         {
-            for (int x = 0; x < numberOfChunkToLoad; x++)
-            {
+            int materialValue = Random.Range(0, 100);
+            if (materialValue < 45 && previusMaterialNumber!=0)
+                materialValue = 0;
+            else if (materialValue < 80 && previusMaterialNumber !=1)
+                materialValue = 1;
+            else
+                materialValue = 2;
+            previusMaterialNumber = materialValue;
+           
                 GameObject newGo = new GameObject();
-                bool isStone = true;
-                float valueOfy = y;
-                if (y % 2 == 0)
-                    isStone = false;
-                if (y == 2)
-                    valueOfy = 8f / 3f;
+                
                 var chunk = newGo.AddComponent<Chunk>();
                 var realSizeOfChunkX = sizeOfChunkX;
-               if(x==0)
-                chunk.Init(10, sizeOfChunkY,chunks.Count, tilePrefab, tileEmptyPrefab, new Vector2(0 , -((sizeOfChunkY+1)*y)) , isStone, sizeOfTiles, myCryptos,y, ref newGo, out newGo);
-                else if (x == 1)
-                    chunk.Init(sizeOfChunkX, sizeOfChunkY, chunks.Count, tilePrefab, tileEmptyPrefab, new Vector2(10, -((sizeOfChunkY + 1) * y)), isStone, sizeOfTiles, myCryptos, y, ref newGo, out newGo);
-                else if (x == 2)
-                    chunk.Init(10, sizeOfChunkY, chunks.Count, tilePrefab, tileEmptyPrefab, new Vector2(10+ sizeOfChunkX, -((sizeOfChunkY + 1) * y)), isStone, sizeOfTiles, myCryptos, y, ref newGo, out newGo);
+                chunk.Init(sizeOfChunkX, sizeOfChunkY, chunks.Count, tilePrefab, tileEmptyPrefab, new Vector2(0, -((sizeOfChunkY + 1) * y)), materialValue, sizeOfTiles, myCryptos, y, ref newGo, out newGo);
                 newGo.transform.SetParent(card.transform);
                 chunks.Add(chunk);
-            }
+            
         }
         for (int i = 0; i < chunks.Count; i++)
         {

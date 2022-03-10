@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BoderMat 1
-  m_Shader: {fileID: -6465566751694194690, guid: c467db0399c4d7245bf130f35805a3dd, type: 3}
+  m_Name: BorderDouble
+  m_Shader: {fileID: -6465566751694194690, guid: 5f0b904671b16d04a928f04665677b66, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,6 +21,10 @@ Material:
     m_TexEnvs:
     - AO:
         m_Texture: {fileID: 2800000, guid: 6404b36cb2870204d80d64c194352ad0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Cracks_D:
+        m_Texture: {fileID: 2800000, guid: a4c4ff9943306584bb83c5a0967e8f08, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - D:
@@ -43,10 +47,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5de71dded48920a4e932ce013faeaeaa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2D:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,10 +61,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - CracksSpreading: 0
     - Empty: 0
+    - Rotation: 3.14
     - Selected: 0
-    - _LerpValue: 0
     m_Colors:
-    - ColorSelection: {r: 0.4256894, g: 0.4194108, b: 0.6132076, a: 1}
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - ColorSelection: {r: 0.6037736, g: 0.3637002, b: 0.2249911, a: 1}
   m_BuildTextureStacks: []
