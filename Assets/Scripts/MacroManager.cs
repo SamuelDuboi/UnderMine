@@ -297,10 +297,10 @@ public class MacroManager : MonoBehaviour
         }
         if (isTrading)
         {
-            minerPrefabsTrading[indexMineSelection].SetActive(true);
+            minerPrefabsTrading[indexMinerSelection].SetActive(true);
         }
         else
-            minerPrefabs[indexMineSelection].SetActive(true);
+            minerPrefabs[indexMinerSelection].SetActive(true);
         minerPrefabs[indexMinerSelection].GetComponent<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
         minerPrefabsTrading[indexMinerSelection].GetComponent<MinerCardUI>().minerCard = listMiner[indexMinerSelection];
         minerPrefabs[indexMinerSelection].GetComponent<MinerCardUI>().UpdateCardContent();
