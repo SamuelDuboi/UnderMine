@@ -932,6 +932,7 @@ MonoBehaviour:
   ingameCanvas: {fileID: 4324938490293404033}
   pauseCanvas: {fileID: 4324938489252029512}
   timerText: {fileID: 4324938489848422626}
+  timeImage: {fileID: 1662598762972063880}
   instance: {fileID: 0}
 --- !u!1 &4324938489783259633
 GameObject:
