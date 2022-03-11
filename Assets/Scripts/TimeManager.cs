@@ -73,7 +73,7 @@ public class TimeManager : MonoBehaviour
 
     public void StopMine()
     {
-        // TODO : Save
+        ValueManager.instance.EndGame();
         SceneManager.LoadScene("HubScene");
     }
 
@@ -93,6 +93,7 @@ public class TimeManager : MonoBehaviour
 
     public void QuitMineAction()
     {
+        ValueManager.instance.EndGame();
         StopMine();
         Time.timeScale = 1;
     }

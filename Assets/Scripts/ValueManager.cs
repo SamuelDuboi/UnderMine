@@ -35,7 +35,10 @@ public class ValueManager : MonoBehaviour
     }
     public void EndGame()
     {
-        globalMoney += CurrentMoney;  
+        mineIndex = 0;
+        minerIndex = 0;
+        globalMoney += CurrentMoney;
+        CurrentMoney = 0;
     }
     public void AddCurrentMoney(float value)
     {
