@@ -13,6 +13,7 @@ public class MinerCardUI : MonoBehaviour
 
     public void Start()
     {
+        if(minerCard)
         UpdateCardContent();
     }
 

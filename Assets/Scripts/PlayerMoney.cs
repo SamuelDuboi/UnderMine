@@ -39,6 +39,7 @@ public class PlayerMoney : ScriptableObject
     }
     public void ChangeValue(CryptosType cryptos, float value)
     {
+       
         if(myCryptos.Count!= 4)
         {
             for (int i = 0; i < 4; i++)

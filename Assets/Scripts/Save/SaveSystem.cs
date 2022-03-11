@@ -59,6 +59,7 @@ public class SaveSystem
     {
         mines[mineIndex].tile.Add(_tile);
         mines[mineIndex].cryptosValue = cryptosValue;
+        strat ++;
         if(strat> mines[mineIndex].strat)
             mines[mineIndex].strat = strat;
         var dataPath = Path.Combine(Application.persistentDataPath, "mine" + mineIndex.ToString() + ".json");

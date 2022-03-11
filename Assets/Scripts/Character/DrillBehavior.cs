@@ -25,7 +25,7 @@ public class DrillBehavior : MonoBehaviour
         stratNumber = _stratNumber;
         myType = _myType;
         myDrill = new Drill(number,stratNumber, position, toGO, myType);
-        timeToMine = ValueManager.instance.currentMiner.buildingSpeed * 0.5f * (stratNumber+1);
+        timeToMine = ValueManager.instance.currentMiner.buildingSpeed * 0.05f * (stratNumber+1);
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
         mat.GetPropertyBlock(propBlock);
         switch (_myType)

@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MacroManager : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class MacroManager : MonoBehaviour
 
     [Space(15)]
 
-    public Text moneyText;
-    public Text ethText;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI ethText;
 
     [Space(15)]
 
@@ -50,8 +51,8 @@ public class MacroManager : MonoBehaviour
 
     [Space(15)]
 
-    public Text sellMineText;
-    public Text sellMinerText;
+    public TextMeshProUGUI sellMineText;
+    public TextMeshProUGUI sellMinerText;
 
 
     private bool canGenerateIncome = true;

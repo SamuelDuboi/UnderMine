@@ -28,7 +28,7 @@ public class MoneyManager : MonoBehaviour
     public void AddDrill(CryptosType type)
     {
         drillNumber[(int)type]++;
-        drillCost.text = DrillCost().ToString();
+        drillCost.text ="cost: " + DrillCost().ToString() +" $";
     }
     private void Start()
     {
@@ -36,6 +36,7 @@ public class MoneyManager : MonoBehaviour
         var indexOfMine = ValueManager.instance.mineIndex;
         for (int i = 0; i < SaveSystem.Instance.mines[indexOfMine].cryptos.Count; i++)
         {
+            playerMoney.myCryptos.Clear();
             playerMoney.ChangeValue(SaveSystem.Instance.mines[indexOfMine].cryptos[i], SaveSystem.Instance.mines[indexOfMine].cryptosValue[i]);
             StartCoroutine(RevenuPerSec(SaveSystem.Instance.mines[indexOfMine].cryptos[i]));
             coinValue[i].text = playerMoney.myCryptos[i].AddRevenu(0).ToString();
@@ -91,7 +92,7 @@ public class MoneyManager : MonoBehaviour
         if (ValueManager.instance.CurrentMoney > cost)
         {
             ValueManager.instance.AddCurrentMoney(- cost);
-            drillCost.text = cost.ToString();
+            drillCost.text = "cost: " + cost.ToString() +" $";
             globalValue.text = ValueManager.instance.CurrentMoney.ToString();
             drillNumber[(int)type]++;
             
@@ -109,7 +110,7 @@ public class MoneyManager : MonoBehaviour
         }
 
 
-        return firstStratCost * 0.25f * Mathf.Pow(1.5f, globalDrillNumber);
+        return firstStratCost * 0.25f * Mathf.Pow(1.5f, globalDrillNumber) +ValueManager.instance.currentMiner.buildingCost;
     }
 
     IEnumerator SetGlobalMoney()
@@ -129,7 +130,7 @@ public class MoneyManager : MonoBehaviour
     public void RemoveDrill(CryptosType myType)
     {
         drillNumber[(int)myType]--;
-        drillCost.text = DrillCost().ToString();
+        drillCost.text = "cost: " + DrillCost().ToString()+ " $";
     }
 
     IEnumerator NotEnoughtMoeny()

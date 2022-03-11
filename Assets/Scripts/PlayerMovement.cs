@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioSourceDig;
 
     public bool canMove;
-
+    public float treshold = 0.5f;
     public Animator Animator { get => animator; set => animator = value; }
 
     private IEnumerator Start()
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         {
            
             movement = (tileTargeted[0].transform.position - transform.position);
-            if (movement.magnitude < 0.05f)
+            if (movement.magnitude < treshold)
             {
                 //do falls anim here
                 if(Isdigging)
@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         else if(positionToReach != Vector2.zero)
         {
             movement = (positionToReach -(Vector2) transform.position);
-            if (movement.magnitude < 0.05f)
+            if (movement.magnitude < treshold)
             {
                 animator.SetFloat("Forward", 0);
                 animator.SetFloat("Strafe", 0);

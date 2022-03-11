@@ -15,7 +15,9 @@ public class TimeManager : MonoBehaviour
     public GameObject pauseCanvas;
     public Text timerText;
 
+    public Image timeImage;
     public TimeManager instance;
+    private bool doOnce;
 
     private void Awake()
     {
@@ -53,7 +55,11 @@ public class TimeManager : MonoBehaviour
                 timerText.text = "" + Mathf.Floor(timeLeft / 60) + " : " + Mathf.Round(timeLeft % 60);
             }
         }
-
+        if(timeLeft<10&& !doOnce)
+        {
+            StartCoroutine(warningRed());
+            doOnce = true;
+        }
         if(timeLeft <= 0)
         {
             StopMine();
@@ -89,5 +95,24 @@ public class TimeManager : MonoBehaviour
     {
         StopMine();
         Time.timeScale = 1;
+    }
+
+    IEnumerator warningRed()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            timeImage.color -= new Color(0, 0.1f, 0.1f,0);
+            yield return new WaitForSeconds(0.01f);
+        }
+        StartCoroutine(warningWhite());
+    }
+    IEnumerator warningWhite()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            timeImage.color += new Color(0f, 0.1f, 0.1f,0);
+            yield return new WaitForSeconds(0.01f);
+        }
+        StartCoroutine(warningRed());
     }
 }
